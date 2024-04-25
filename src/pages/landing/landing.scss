@@ -1,0 +1,106 @@
+  .u-flip {
+    animation: flip 1400ms infinite;
+    animation-timing-function: cubic-bezier(.1,.67,.88,.34);
+  }
+ 
+  
+  
+  .u-text-center {text-align: center;}
+  
+  /* Pokeball draw code */
+  // Size variable to keep all proportional if manipulate it
+  $size: 70px;
+  .o-pokeball {
+    width: $size;
+    height: $size;
+    border-radius: $size;
+    border: 2px solid black;
+    box-sizing: content-box;
+    position: relative;    
+    background: linear-gradient(to bottom, #EEEEEE 0%,#FFFFFF 100%);;
+    margin: 10px auto;
+    
+    &:before,
+    &:after{
+      content: "";
+      display: block;
+    }
+    
+    &,
+    &:before,
+    &:after{
+      transition: all 600ms cubic-bezier(.67,.4,.36,.75);
+    }
+    
+    &:before {
+      width: $size;
+      height: ($size/2) -($size/25/2);
+      border-bottom: solid ($size/25) black;
+      border-radius: ($size/2) ($size/2) 0 0;
+      background: linear-gradient(to bottom, #d10000 0%,#ff0000 50%);
+    }
+    
+    &:after {
+      content: "";
+      width: $size/5;
+      height: $size/5;
+      background: linear-gradient(to bottom, #fff 0%,#ccc 100%);
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%,-50%);
+      border-radius: 50%;
+      box-shadow: 0 0 0 ($size/50) black,
+                  0 0 0 ($size/25) #ddd,
+                  0 0 0 ($size/14) black,
+                  0 0 ($size/10) ($size/17) rgba(0,0,0,0.4);
+    }
+  }
+  @keyframes flip {
+    from {
+      -webkit-transform: perspective(400px) scale3d(1, 1, 1) translate3d(0, 0, 0) rotate3d(0, 1, 0, -360deg);
+      transform: perspective(400px) scale3d(1, 1, 1) translate3d(0, 0, 0) rotate3d(0, 1, 0, -360deg);
+      -webkit-animation-timing-function: ease-out;
+      animation-timing-function: ease-out;
+    }
+  
+    40% {
+      -webkit-transform: perspective(400px) scale3d(1, 1, 1) translate3d(0, 0, 150px)
+        rotate3d(0, 1, 0, -190deg);
+      transform: perspective(400px) scale3d(1, 1, 1) translate3d(0, 0, 150px)
+        rotate3d(0, 1, 0, -190deg);
+      -webkit-animation-timing-function: ease-out;
+      animation-timing-function: ease-out;
+    }
+  
+    50% {
+      -webkit-transform: perspective(400px) scale3d(1, 1, 1) translate3d(0, 0, 150px)
+        rotate3d(0, 1, 0, -170deg);
+      transform: perspective(400px) scale3d(1, 1, 1) translate3d(0, 0, 150px)
+        rotate3d(0, 1, 0, -170deg);
+      -webkit-animation-timing-function: ease-in;
+      animation-timing-function: ease-in;
+    }
+  
+    80% {
+      -webkit-transform: perspective(400px) scale3d(0.95, 0.95, 0.95) translate3d(0, 0, 0)
+        rotate3d(0, 1, 0, 0deg);
+      transform: perspective(400px) scale3d(0.95, 0.95, 0.95) translate3d(0, 0, 0)
+        rotate3d(0, 1, 0, 0deg);
+      -webkit-animation-timing-function: ease-in;
+      animation-timing-function: ease-in;
+    }
+  
+    to {
+      -webkit-transform: perspective(400px) scale3d(1, 1, 1) translate3d(0, 0, 0) rotate3d(0, 1, 0, 0deg);
+      transform: perspective(400px) scale3d(1, 1, 1) translate3d(0, 0, 0) rotate3d(0, 1, 0, 0deg);
+      -webkit-animation-timing-function: ease-in;
+      animation-timing-function: ease-in;
+    }
+  }
+  .animate__animated.animate__flip {
+    -webkit-backface-visibility: visible;
+    backface-visibility: visible;
+    -webkit-animation-name: flip;
+    animation-name: flip;
+  }
