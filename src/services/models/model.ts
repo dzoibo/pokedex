@@ -4,7 +4,7 @@ import { API_URL, TYPE } from '../../utils/apis';
 
 class Generics {
     
-    async getPokemons(id: number): Promise<Pokemon>{
+    async getPokemon(id: number): Promise<Pokemon>{
         let pokemon:Pokemon;
         const fetchData = async () => {
             try {
@@ -18,11 +18,19 @@ class Generics {
             } catch (error) {
               console.error('Error fetching data:', error);
             }
-          };
+        };
         pokemon= await fetchData();
         return this.mapData(pokemon);
     }
     
+    async getPokemons(start:number, end:number){
+      let pokemonList=[]
+      for (let i = start; i <=end; i++) {
+        const pokemon=await this.getPokemon(i);
+        pokemonList.push(pokemon);
+      }
+      return pokemonList;
+    }
 
     async mapData(data: any){
         let pokemon=new Pokemon() ;
@@ -41,7 +49,8 @@ class Generics {
         pokemon.is_default=data.is_default;
         pokemon.image=data.sprites.other['official-artwork'].front_default;
         pokemon.species = await this.getSpices(data.species.url);
-        pokemon.species.color.name=TYPE.filter((type)=>type.name===pokemon.types[0])[0].color
+        pokemon.species.color.text=TYPE.filter((type)=>type.name===pokemon.types[0])[0].textColor;
+        pokemon.species.color.backgroung=TYPE.filter((type)=>type.name===pokemon.types[0])[0].bgColor;
         pokemon.stats=data.stats
         return pokemon;
     }

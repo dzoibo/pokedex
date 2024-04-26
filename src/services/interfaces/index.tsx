@@ -94,7 +94,8 @@ export interface Pokemon {
   }
   
   export interface Color {
-    name: string
+    text: string,
+    backgroung: string,
     url: string
   }
   

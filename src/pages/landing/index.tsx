@@ -14,9 +14,8 @@ const Landing = () => {
   const genericFunctions = new Generics();
   
   useEffect(() => {
-
     const randomId = Math.floor(Math.random() * 151) + 1;
-    genericFunctions.getPokemons(randomId).then((response: any)=>{
+    genericFunctions.getPokemon(randomId).then((response: any)=>{
       setPokemon(response);
     })
   }, []);
@@ -26,10 +25,10 @@ const Landing = () => {
 
   if(pokemon.species!==undefined ){
     return (
-      <div className='p-8' >
+      <div className='px-8 py-8 xl:px-36' >
         <Header/>
         <div>
-          <h1 data-aos="fade-up" className=' main-title text-base sm:text-[2.5rem] mt-4 sm:mt-12 w-full text-left mb-2'> Welcome to the pokedev</h1>
+          <h1 data-aos="fade-up" className=' main-title text-xl sm:text-[2.5rem] mt-4 sm:mt-12 w-full text-left mb-2'> Welcome to the pokedev</h1>
           <div  className='grid sm:grid-cols-2 gap-6 sm:gap-8'>
             <Link data-aos="fade-up" data-aos-delay="100"  className={menuCardStyle + 'bg-[#58af94]'} to='pokemon'>
               <p className='ml-6 sm:ml-12'>Pokémons</p> 
@@ -49,7 +48,7 @@ const Landing = () => {
             </a>
           </div>
           
-          <div data-aos="fade-up" data-aos-delay="550" className={menuCardStyle+ ' !px-6 sm:!px-16 mt-6'} style={{background:pokemon.species.color.name}}>
+          <div data-aos="fade-up" data-aos-delay="550" className={menuCardStyle+' '+ pokemon.species.color.backgroung+ ' !px-6 sm:!px-16 mt-6 '} /* style={{background:pokemon.species.color.name}} */>
             <h2 className='mb-2 sm:mb-6'>Pokemon random</h2>
             <div className='block items-center sm:flex-row-reverse justify-between sm:flex'>
               <div className='font-bold mb-2.5 sm:mb-0'>#{pokemon.id} </div>
