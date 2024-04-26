@@ -1,4 +1,4 @@
-import { Pokemon } from "../interfaces";
+import { Pokemon, Species } from "../interfaces";
 import { API_URL, TYPE } from '../../utils/apis';
 
 
@@ -62,7 +62,17 @@ class Generics {
           };
         return await fetchData();  
     }
+
+    getDesc(species: Species){
+      for (const flavor_text_entry of species.flavor_text_entries){
+        if (flavor_text_entry.language.name==='en'){
+          return flavor_text_entry.flavor_text;
+        }
+      }
+    }
 }
+
+
 
 
 

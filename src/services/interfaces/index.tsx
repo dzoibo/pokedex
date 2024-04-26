@@ -5,7 +5,7 @@ export interface Pokemon {
     cries: Cries
     //forms: Form[]
     game_indices: Index[]
-    height: number
+    height: numbere
     held_items: any[]
     id: number
     is_default: boolean
