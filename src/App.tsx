@@ -7,7 +7,8 @@ import Home from './pages/landing';
 import Pokemon from './pages/pokemon'
 import AOS from "aos";
 import "aos/dist/aos.css";
-
+import { Provider } from 'react-redux';
+import store from './redux/store';
 
 const App=()=> {
     useEffect(() => {
@@ -20,14 +21,17 @@ const App=()=> {
     }, []);
 
   return (
-    <Router>
-      <div className="App">
-        <Routes>
-          <Route path="/" element={<Home/>}/>
-          <Route path="/pokemon" element={<Pokemon/>}/>
-        </Routes>
-      </div>
-    </Router>
+    <Provider store = {store}>
+      <Router>
+        <div className="App">
+          <Routes>
+            <Route path="/" element={<Home/>}/>
+            <Route path="/pokemon" element={<Pokemon/>}/>
+          </Routes>
+        </div>
+      </Router>  
+    </Provider>
+    
     
   );
 }

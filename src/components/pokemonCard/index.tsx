@@ -1,9 +1,11 @@
-import React from 'react';
-import pokeball from '../../assets/images/pokeball.svg';
 import { Link } from 'react-router-dom';
 import { Pokemon } from '../../services/interfaces';
+import pokeball from '../../assets/images/pokeball.svg';
+
 
 function PokemonCard(props: any) {
+    
+
   const pokemon: Pokemon= props.pokemon
   return (
     <div className={'text-white group flex justify-between relative p-8 overflow-hidden rounded-3xl h-52 w-80 px-6  mt-6 '+pokemon.species.color.backgroung} >

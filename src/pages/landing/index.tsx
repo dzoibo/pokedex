@@ -1,29 +1,43 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import Header from '../../components/header';
 import { Pokemon } from '../../services/interfaces';
+import { useDispatch,useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import pokeball from '../../assets/images/pokeball.svg';
-import './landing.scss';
 import Generics from '../../services/models/model';
 import Cries from '../../components/cries';
+import { loadPokemon } from '../../redux/pokemon/actionPokemon';
 
 const Landing = () => {
   const menuCardStyle= 'overflow-hidden relative shadow-md px-0 sm:px-4 py-5 sm:py-8 rounded-xl sm:rounded-3xl text-white font-bold text-xl sm:text-2xl space-[0.5] before:absolute before:w-32 before:h-32 before:rounded-full before:rotate-45 before:-top-20 before:-left-16 before:bg-white/20 hover:before:bg-white/40 before:transition-all bg-grass shadow-grass/80 ';
   const [pokemon,setPokemon]= useState( new Pokemon());
+  const [displayLoader, setDisplayLoader]= useState(true)
   const genericFunctions = new Generics();
+  const dispatch = useDispatch()
+  const pokemonList=useSelector((state:any) => state.pokemonList);
+
+  
   
   useEffect(() => {
     const randomId = Math.floor(Math.random() * 151) + 1;
-    genericFunctions.getPokemon(randomId).then((response: any)=>{
-      setPokemon(response);
-    })
+    setDisplayLoader(true);
+    if(pokemonList.length<=1){
+      genericFunctions.getPokemon(randomId).then((response: any)=>{
+        setPokemon(response);
+        dispatch(loadPokemon([response]))
+        setDisplayLoader(false);
+      })
+    }else{
+      setPokemon(pokemonList[randomId-1])// we remove 1 to make sure that the random id will always start at 1 and end at 2
+      setDisplayLoader(false);
+    }
   }, []);
 
   
  
 
-  if(pokemon.species!==undefined ){
+  if(!displayLoader){
     return (
       <div className='px-8 py-8 xl:px-36' >
         <Header/>

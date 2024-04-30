@@ -43,7 +43,14 @@ class Generics {
         }
         pokemon.base_experience=data.base_experience;
         pokemon.cries=data.cries.latest;
-        pokemon.id=data.id;
+        const id=data.id.toString();
+        if(id.length>=3){
+          pokemon.id=id;
+        }else if(id.length===2){
+          pokemon.id='0'+id;
+        }else{
+          pokemon.id='00'+id;
+        }
         pokemon.game_indices=data.game_indices;
         pokemon.height= data.height;
         pokemon.is_default=data.is_default;

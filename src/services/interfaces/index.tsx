@@ -28,7 +28,7 @@ export interface Pokemon {
     cries!: string
     game_indices!: Index[]
     height!: number
-    id!: number
+    id!: string
     is_default!: boolean
    /*  location_area_encounters: string */
     /* moves: Mfe[] */
