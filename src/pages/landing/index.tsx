@@ -35,7 +35,6 @@ const Landing = () => {
   }, []);
 
   
- 
 
   if(!displayLoader){
     return (

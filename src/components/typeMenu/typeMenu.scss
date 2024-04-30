@@ -20,7 +20,7 @@
     transition: .35s ease;
     z-index:-1;
     border-radius: 8px;
-    transform:translate(4px, 4px)
+    transform:translate(5px, 5px)
   }
 
   span {
@@ -30,7 +30,7 @@
     box-sizing: content-box;
     //border: 2px solid grey;
     border-radius: 6px;
-    transition: .05s ease;
+    transition: .01s ease;
     overflow:hidden;
     text-transform:uppercase;
     font-weight:600;
