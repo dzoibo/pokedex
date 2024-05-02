@@ -70,7 +70,7 @@ function Abilities() {
 
   if(!displayLoader){
     return (
-      <div className='px-8 py-8 xl:px-36'>
+      <>
         <Header link='home'/>
         <h1 className=' main-title text-base sm:text-[2.5rem] mt-4 sm:mt-12 w-full text-left mb-2'> Abilities</h1>
         <SearchBar search={searchAbilities} placeholder={'Search an abilitiy !!!'} />
@@ -85,12 +85,10 @@ function Abilities() {
                   <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z"></path>
                 </svg>
               </div>  
-            </div>
-              
+            </div>             
           ))} 
-        </div>
-            
-      </div>
+        </div>    
+      </>
     )
   }else{
     return (

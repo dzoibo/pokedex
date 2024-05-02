@@ -25,12 +25,15 @@ const App=()=> {
     <Provider store = {store}>
       <Router>
         <div className="App">
-          <Routes>
-            <Route path="/" element={<Home/>}/>
-            <Route path="/pokemon" element={<Pokemon/>}/>
-            <Route path="/abilities" element={<Abilities/>}/>
-          </Routes>
+          <div className='px-8 py-8 xl:px-36 2xl:px-44 w-full relative'>
+            <Routes>
+              <Route path="/" element={<Home/>}/>
+              <Route path="/pokemon" element={<Pokemon/>}/>
+              <Route path="/abilities" element={<Abilities/>}/>
+            </Routes>
+            <a className="mt-10 block font-semibold text-white rounded px-4 py-2 md:w-fit bg-black" href="https://twitter.com/ivan_dzoibo" target="_blank" rel="noreferrer">© By Dzoibo ivan</a>
 
+          </div>
         </div>
       </Router>  
     </Provider>
