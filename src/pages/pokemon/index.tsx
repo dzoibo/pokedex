@@ -53,7 +53,7 @@ function Pokemon() {
 
   if(!displayLoader){
     return (
-      <div className='px-8 py-8 xl:px-36'>
+      <>
           <Header link='home'/>
           <h1 className=' main-title text-base sm:text-[2.5rem] mt-4 sm:mt-12 w-full text-left mb-2'> Pokemons</h1>
           <SearchBar search={searchPokemon} placeholder={'Search a pokemon !!!'} />
@@ -63,7 +63,7 @@ function Pokemon() {
               <PokemonCard key={item.id}  pokemon={item} />
             ))} 
           </div>
-      </div>
+      </>
     )
   }else{
     return (
