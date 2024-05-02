@@ -195,5 +195,13 @@ export interface Pokemon {
     url: string
   }
   
+  //Abilities classes
+  export class Ability{
+    name!: string;
+    id!:number;
+    short_effect!: string;
+    short_desc!: string;
+  }
+
   
   

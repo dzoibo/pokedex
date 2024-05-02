@@ -7,7 +7,7 @@ export const loadPokemon = arg => {
     }
 }
 
-export const loadAbities = arg => {
+export const loadAbility = arg => {
     return {
         type: LOAD_ABILITIES,
         payload: arg

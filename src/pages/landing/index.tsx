@@ -51,17 +51,17 @@ const Landing = () => {
               <p className='ml-6 sm:ml-12'>Moves</p> 
               <img className='absolute -right-8 -bottom-6 h-6 w-36' alt='pokeball icon' src={pokeball}/>
             </a>
-            <a data-aos="fade-up" data-aos-delay="300" className={menuCardStyle+'bg-[#75aef0]'}>
+            <Link to='abilities' data-aos="fade-up" data-aos-delay="300" className={menuCardStyle+'bg-[#75aef0]'}>
               <p className='ml-6 sm:ml-12'>Abilities</p> 
               <img className='absolute -right-8 -bottom-6 h-36 w-36' alt='pokeball icon' src={pokeball}/>
-            </a>
+            </Link>
             <a data-aos="fade-up" data-aos-delay="400" className={menuCardStyle+'bg-[#f7cd5c]'}>
               <p className='ml-6 sm:ml-12 '>items</p> 
               <img className='absolute -right-8 -bottom-6 h-36 w-36' alt='pokeball icon' src={pokeball}/>
             </a>
           </div>
           
-          <div data-aos="fade-up" data-aos-delay="550" className={menuCardStyle+' '+ pokemon.species.color.backgroung+ ' !px-6 sm:!px-16 mt-6 '} /* style={{background:pokemon.species.color.name}} */>
+          <div data-aos="fade-up" data-aos-delay="550" className={menuCardStyle+' '+ pokemon.species.color.backgroung+ ' !px-6 sm:!px-16 mt-10 '} /* style={{background:pokemon.species.color.name}} */>
             <h2 className='mb-2 sm:mb-6'>Pokemon random</h2>
             <div className='block items-center sm:flex-row-reverse justify-between sm:flex'>
               <div className='font-bold mb-2.5 sm:mb-0'>#{pokemon.id} </div>
@@ -90,6 +90,7 @@ const Landing = () => {
           
           <a className="mt-6 block w-full font-semibold text-white rounded px-4 py-2 md:w-fit bg-black" href="https://twitter.com/ivan_dzoibo" target="_blank" rel="noreferrer">© By Dzoibo ivan</a>
         </div> 
+
       </div>
     )
   }else{

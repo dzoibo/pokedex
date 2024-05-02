@@ -1,5 +1,5 @@
 export const API_URL = {
-    baseDevUrl: 'https://pokeapi.co/api/v2/pokemon/',
+    baseDevUrl: 'https://pokeapi.co/api/v2/',
 }
 export const TYPE= [
     {

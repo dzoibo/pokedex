@@ -1,10 +1,11 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import './App.scss';
 import Home from './pages/landing';
-import Pokemon from './pages/pokemon'
+import Pokemon from './pages/pokemon';
+import Abilities from './pages/abilities';
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { Provider } from 'react-redux';
@@ -27,7 +28,9 @@ const App=()=> {
           <Routes>
             <Route path="/" element={<Home/>}/>
             <Route path="/pokemon" element={<Pokemon/>}/>
+            <Route path="/abilities" element={<Abilities/>}/>
           </Routes>
+
         </div>
       </Router>  
     </Provider>

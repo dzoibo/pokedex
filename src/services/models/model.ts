@@ -1,5 +1,6 @@
-import { Pokemon, Species } from "../interfaces";
+import { Ability, Pokemon, Species } from "../interfaces";
 import { API_URL, TYPE } from '../../utils/apis';
+import pokemon from "../../pages/pokemon";
 
 
 class Generics {
@@ -8,7 +9,7 @@ class Generics {
         let pokemon:Pokemon;
         const fetchData = async () => {
             try {
-              const response = await fetch(API_URL.baseDevUrl+id);
+              const response = await fetch(API_URL.baseDevUrl+'pokemon/'+id);
               if (!response.ok) {
                 return {};
                 /* throw new Error('Network response was not ok'); */
@@ -20,11 +21,11 @@ class Generics {
             }
         };
         pokemon= await fetchData();
-        return this.mapData(pokemon);
+        return this.mapPokemonData(pokemon);
     }
     
     async getPokemons(start:number, end:number){
-      let pokemonList=[]
+      let pokemonList=[];
       for (let i = start; i <=end; i++) {
         const pokemon=await this.getPokemon(i);
         pokemonList.push(pokemon);
@@ -32,7 +33,34 @@ class Generics {
       return pokemonList;
     }
 
-    async mapData(data: any){
+    async getAbilities(start: number, end: number){
+      let abilityList=[];
+      for (let i = start; i <= end ; i++){
+        const ability = await this.getAbility(i);
+        abilityList.push(ability);
+      }
+      return abilityList;
+    }
+    
+    async getAbility(id: number){
+      let ability= new Ability();
+      const fetchData = async () => {
+          try {
+            const response = await fetch(API_URL.baseDevUrl+'ability/'+id);
+            if (!response.ok) {
+              return {};
+            }
+            const jsonData = await response.json();
+            return jsonData
+          } catch (error) {
+            console.error('Error fetching data:', error);
+          }
+      };
+      ability= await fetchData();
+      return this.mapAbilityData(ability);
+    }
+
+    async mapPokemonData(data: any){
         let pokemon=new Pokemon() ;
         pokemon.name=data.name;
         for (const item of data.abilities){
@@ -60,6 +88,15 @@ class Generics {
         pokemon.species.color.backgroung=TYPE.filter((type)=>type.name===pokemon.types[0])[0].bgColor;
         pokemon.stats=data.stats
         return pokemon;
+    }
+
+    async mapAbilityData(data: any){
+      let ability = new Ability();
+      ability.id = data.id;
+      ability.name = data.name;
+      ability.short_desc =  data.flavor_text_entries.filter((item: any)=>item.language.name==='en')[0].flavor_text;
+      ability.short_effect =  data.effect_entries.filter((effect: any)=>effect.language.name==='en')[0].short_effect;
+      return ability;
     }
 
     async getSpices(spiciesUrl: string){

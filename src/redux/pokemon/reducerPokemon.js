@@ -3,7 +3,8 @@ import { LOAD_POKEMON,LOAD_ABILITIES,LOAD_ITEMS,LOAD_MOVES,SELECT_POKEMON } from
 
 const initialState = {
     selectedPokemon : undefined,
-    pokemonList: []
+    pokemonList: [],
+    abilityList: []
 }
 
 const pokemonReducer = (state = initialState, action) => {
@@ -19,6 +20,11 @@ const pokemonReducer = (state = initialState, action) => {
             return {
                 ...state,
                 pokemonList: action.payload
+            }
+        case LOAD_ABILITIES:
+            return{
+                ...state,
+                abilityList: action.payload
             }
         default: return state
     }

@@ -12,7 +12,9 @@ function Pokemon() {
   const genericFunctions = new Generics();
   const dispatch = useDispatch()
   const pokemonListSaved=useSelector((state:any) => state.pokemonList);
-  const [displayLoader, setDisplayLoader]= useState(false)
+  const [displayLoader, setDisplayLoader]= useState(false);
+  const [selectedType,setType]= useState('All');
+  const [searchKey,setSearchKey]= useState('');
   const [pokemonList, setPokemonList]=useState([]);
   
   useEffect(() => {
@@ -32,30 +34,35 @@ function Pokemon() {
 
 
   const filterPokemon = (type: string) => {
-      if(type==='All'){
-        setPokemonList(pokemonListSaved);
-      }
-      else{
-        const filteredList=pokemonListSaved.filter((pokemon:any) => pokemon.types.indexOf(type)>=0)
+      if(type!==selectedType){
+        const filteredList = pokemonListSaved.filter((pokemon:any) => 
+        pokemon.name.includes(searchKey) && 
+        (pokemon.types.indexOf(type)>=0 || type==='All'));
+        setType(type);
         setPokemonList(filteredList);
       }
-      
+  }
+
+  const searchPokemon = (keyWord: string) => {
+    const searchResult = pokemonListSaved.filter((pokemon:any) => 
+      pokemon.name.includes(keyWord) && 
+      (pokemon.types.indexOf(selectedType)>=0 || selectedType==='All'));
+      setSearchKey(keyWord);    
+      setPokemonList(searchResult);
   }
 
   if(!displayLoader){
     return (
-      
       <div className='px-8 py-8 xl:px-36'>
           <Header link='home'/>
           <h1 className=' main-title text-base sm:text-[2.5rem] mt-4 sm:mt-12 w-full text-left mb-2'> Pokemons</h1>
-          <SearchBar placeholder={'Search a pokemon !!!'} />
+          <SearchBar search={searchPokemon} placeholder={'Search a pokemon !!!'} />
           <TypeMenu filter={filterPokemon} />
           <div className='flex w-full justify-center gap-x-6 flex-wrap'>
           {pokemonList.map((item:any) => (
               <PokemonCard key={item.id}  pokemon={item} />
             ))} 
           </div>
-          
       </div>
     )
   }else{
