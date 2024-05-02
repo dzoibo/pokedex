@@ -6,6 +6,7 @@ import './App.scss';
 import Home from './pages/landing';
 import Pokemon from './pages/pokemon';
 import Abilities from './pages/abilities';
+import Notfound from './pages/notFound';
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { Provider } from 'react-redux';
@@ -30,9 +31,8 @@ const App=()=> {
               <Route path="/" element={<Home/>}/>
               <Route path="/pokemon" element={<Pokemon/>}/>
               <Route path="/abilities" element={<Abilities/>}/>
+              <Route path="/*" element={<Notfound/>}/>
             </Routes>
-            <a className="mt-10 block font-semibold text-white rounded px-4 py-2 md:w-fit bg-black" href="https://twitter.com/ivan_dzoibo" target="_blank" rel="noreferrer">© By Dzoibo ivan</a>
-
           </div>
         </div>
       </Router>  

@@ -69,9 +69,9 @@ export const TYPE= [
         name: "fire",
     },
     {
-        textColor:'text-[#75AE50]',
-        bgColor: 'bg-[#75AE50]',
-        borderColor:'border-[#75AE50]',
+        textColor:'text-[#75AEF0]',
+        bgColor: 'bg-[#75AEF0]',
+        borderColor:'border-[#75AEF0]',
         name: "water",
     },
     {
