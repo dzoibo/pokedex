@@ -28,6 +28,8 @@ function PokemonInfo (props: any) {
   const pokemonImageStyle= 'relative w-auto h-60 sm:h-80 select-none';
   const previousSelectedImage='transition-all h-36 sm:h-44 md:h-52 -left-40 sm:-left-48 md:-left-60 top-12 brightness-0 contrast-50 opacity-70 hover:opacity-100 previous-pokemon-picture select-none';
   const aboutItemStyle= 'flex items-center mt-1';
+  const statItemStyle='flex items-center my-3 '
+  const menuItemStyle='flex items-center sm:pb-2 sm:pr-8 text-sm transition-colors duration-200 cursor-pointer md:text-lg hover:text-black'
   useEffect(() => {
     setDisplayLoader(true);
     if(pokemonListSaved.length<=1){
@@ -89,29 +91,29 @@ function PokemonInfo (props: any) {
               <img className={previousSelectedImage} src={(pokemonList[pokemonId] as any).image} alt="next pokemon" />
             </div>
           }
-          <div className='px-8 sm:px-12 py-6 bg-white rounded-3xl min-h-[60%] max-w-3xl shadow-xl m-auto'>
-              <div className='flex justify-between items-center px-4 py-7 text-gray-400 *:flex *:items-center  *:font-semi-bold '>
-                <div className=' hover:text-black'>
+          <div className=' hidden px-8 sm:px-12 py-6 bg-white rounded-3xl min-h-[60%] max-w-3xl shadow-xl m-auto'>
+              <ul className='flex justify-between items-center px-4 py-7 text-gray-400  '>
+                <li className={menuItemStyle}>
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" aria-hidden="true" className="w-8 h-8 sm:w-6 sm:h-6 sm:mr-2"><path strokeLinecap="round" strokeLinejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z"></path></svg>
                   <span className='hidden sm:block capitalize'>About</span>
-                </div>
+                </li>
 
-                <div className='hover:text-black'>
+                <li className={menuItemStyle}>
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" aria-hidden="true" className="w-8 h-8 sm:w-6 sm:h-6 sm:mr-2"><path strokeLinecap="round" stroke-linejoin="round" d="M7.5 14.25v2.25m3-4.5v4.5m3-6.75v6.75m3-9v9M6 20.25h12A2.25 2.25 0 0020.25 18V6A2.25 2.25 0 0018 3.75H6A2.25 2.25 0 003.75 6v12A2.25 2.25 0 006 20.25z"></path></svg>
                   <span className='hidden sm:block capitalize'>Stats</span>
-                </div>
+                </li>
 
-                <div className='hover:text-black'>
+                <li className={menuItemStyle}>
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" aria-hidden="true" className="w-8 h-8 sm:w-6 sm:h-6 sm:mr-2"><path strokeLinecap="round" stroke-linejoin="round" d="M7.5 14.25v2.25m3-4.5v4.5m3-6.75v6.75m3-9v9M6 20.25h12A2.25 2.25 0 0020.25 18V6A2.25 2.25 0 0018 3.75H6A2.25 2.25 0 003.75 6v12A2.25 2.25 0 006 20.25z"></path></svg>
                   <span className='hidden sm:block capitalize'>Evolution</span>
-                </div>
+                </li>
 
-                <div className='hover:text-black'>
+                <li className={menuItemStyle}>
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" aria-hidden="true" className="w-8 h-8 sm:w-6 sm:h-6 sm:mr-2"><path strokeLinecap="round" stroke-linejoin="round" d="M10.05 4.575a1.575 1.575 0 10-3.15 0v3m3.15-3v-1.5a1.575 1.575 0 013.15 0v1.5m-3.15 0l.075 5.925m3.075.75V4.575m0 0a1.575 1.575 0 013.15 0V15M6.9 7.575a1.575 1.575 0 10-3.15 0v8.175a6.75 6.75 0 006.75 6.75h2.018a5.25 5.25 0 003.712-1.538l1.732-1.732a5.25 5.25 0 001.538-3.712l.003-2.024a.668.668 0 01.198-.471 1.575 1.575 0 10-2.228-2.228 3.818 3.818 0 00-1.12 2.687M6.9 7.575V12m6.27 4.318A4.49 4.49 0 0116.35 15m.002 0h-.002"></path></svg>
                   <span className='hidden sm:block  capitalize'>Moves</span>
-                </div>
+                </li>
 
-              </div>  
+              </ul>  
 
               <div>
                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis architecto quas facere asperiores repellat nemo consequatur quisquam obcaecati quaerat molestiae.</p>
@@ -145,9 +147,9 @@ function PokemonInfo (props: any) {
                   And what more ?
               </h3>
 
-              <div className={aboutItemStyle}>
+              <div className={aboutItemStyle+ 'sm:flex-nowrap flex-wrap'}>
                 <div className='about-list-title'>Abilities </div>
-                <div className='flex gap-2'>
+                <div className='flex gap-2 '>
                   <div className='about-list-badge'>Torrent</div>
                   <div className='about-list-badge'>Rain dish</div>
                 </div>
@@ -168,7 +170,7 @@ function PokemonInfo (props: any) {
                 <div>50</div>
               </div>
 
-              <div className={aboutItemStyle}>
+              <div className={aboutItemStyle + 'sm:flex-nowrap flex-wrap'}>
                 <div className='about-list-title'>Egg groups</div>
                 <div className='flex gap-4'>
                   <div className='about-list-badge'>Monster</div>
@@ -190,11 +192,93 @@ function PokemonInfo (props: any) {
                 </div>
               </div>
 
-              <div className={aboutItemStyle}>
+              <div className={aboutItemStyle + 'sm:flex-nowrap flex-wrap'}>
                 <div className='about-list-title'>Encounters</div>
                 <div className='about-list-badge'>Pallet town area</div>
               </div>
           </div> 
+
+          <div className='w-screen px-8 sm:px-12 py-6 bg-white rounded-3xl min-h-[60%] max-w-3xl shadow-xl m-auto'>
+              <ul className='flex justify-between items-center px-4 py-7 text-gray-400 '>
+                <li className={menuItemStyle}>
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" aria-hidden="true" className="w-8 h-8 sm:w-6 sm:h-6 sm:mr-2"><path strokeLinecap="round" strokeLinejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z"></path></svg>
+                  <span className='hidden sm:block capitalize'>About</span>
+                </li>
+
+                <li className={menuItemStyle}>
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" aria-hidden="true" className="w-8 h-8 sm:w-6 sm:h-6 sm:mr-2"><path strokeLinecap="round" stroke-linejoin="round" d="M7.5 14.25v2.25m3-4.5v4.5m3-6.75v6.75m3-9v9M6 20.25h12A2.25 2.25 0 0020.25 18V6A2.25 2.25 0 0018 3.75H6A2.25 2.25 0 003.75 6v12A2.25 2.25 0 006 20.25z"></path></svg>
+                  <span className='hidden sm:block capitalize'>Stats</span>
+                </li>
+
+                <li className={menuItemStyle}>
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" aria-hidden="true" className="w-8 h-8 sm:w-6 sm:h-6 sm:mr-2"><path strokeLinecap="round" stroke-linejoin="round" d="M7.5 14.25v2.25m3-4.5v4.5m3-6.75v6.75m3-9v9M6 20.25h12A2.25 2.25 0 0020.25 18V6A2.25 2.25 0 0018 3.75H6A2.25 2.25 0 003.75 6v12A2.25 2.25 0 006 20.25z"></path></svg>
+                  <span className='hidden sm:block capitalize'>Evolution</span>
+                </li>
+
+                <li className={menuItemStyle}>
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" aria-hidden="true" className="w-8 h-8 sm:w-6 sm:h-6 sm:mr-2"><path strokeLinecap="round" stroke-linejoin="round" d="M10.05 4.575a1.575 1.575 0 10-3.15 0v3m3.15-3v-1.5a1.575 1.575 0 013.15 0v1.5m-3.15 0l.075 5.925m3.075.75V4.575m0 0a1.575 1.575 0 013.15 0V15M6.9 7.575a1.575 1.575 0 10-3.15 0v8.175a6.75 6.75 0 006.75 6.75h2.018a5.25 5.25 0 003.712-1.538l1.732-1.732a5.25 5.25 0 001.538-3.712l.003-2.024a.668.668 0 01.198-.471 1.575 1.575 0 10-2.228-2.228 3.818 3.818 0 00-1.12 2.687M6.9 7.575V12m6.27 4.318A4.49 4.49 0 0116.35 15m.002 0h-.002"></path></svg>
+                  <span className='hidden sm:block  capitalize'>Moves</span>
+                </li>
+
+              </ul>  
+              <div>
+               <div className={statItemStyle}>
+                  <div className='about-list-title'>Hp </div>
+                  <div className='stat-item'>
+                    <span>60</span>
+                    <div className='bg-gray-100'>
+                      <div className='bg-[#ea7571] '></div>
+                    </div>
+                  </div>
+                </div> 
+                <div className={statItemStyle}>
+                  <div className='about-list-title'>Attack</div>
+                  <div className='stat-item'>
+                    <span>60</span>
+                    <div className='bg-gray-100'>
+                      <div className='bg-[#ea7571] '></div>
+                    </div>
+                  </div>
+                </div> 
+                <div className={statItemStyle}>
+                  <div className='about-list-title'>Defense</div>
+                  <div className='stat-item'>
+                    <span>60</span>
+                    <div className='bg-gray-100'>
+                      <div className='bg-[#ea7571]'></div>
+                    </div>
+                  </div>
+                </div> 
+                <div className={statItemStyle}>
+                  <div className='about-list-title'>Spécial-attack</div>
+                  <div className='stat-item'>
+                    <span>60</span>
+                    <div className='bg-gray-100'>
+                      <div className='bg-[#58af94] '></div>
+                    </div>
+                  </div>
+                </div> 
+                <div className={statItemStyle}>
+                  <div className='about-list-title'>Spécial-defense</div>
+                  <div className='stat-item'>
+                    <span>60</span>
+                    <div className='bg-gray-100'>
+                      <div className='bg-[#58af94] '></div>
+                    </div>
+                  </div>
+                </div> 
+                <div className={statItemStyle}>
+                  <div className='about-list-title'>Speed</div>
+                  <div className='stat-item'>
+                    <span>60</span>
+                    <div className='bg-gray-100'>
+                      <div className='bg-[#ea7571]'></div>
+                    </div>
+                  </div>
+                </div> 
+              </div>
+              
+          </div>
         </div>
        
 
