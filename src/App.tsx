@@ -6,6 +6,7 @@ import './App.scss';
 import Home from './pages/landing';
 import Pokemon from './pages/pokemon';
 import Abilities from './pages/abilities';
+import PokemonInfo from './pages/pokemon-infos'
 import Notfound from './pages/notFound';
 import AOS from "aos";
 import "aos/dist/aos.css";
@@ -21,16 +22,17 @@ const App=()=> {
       });
       AOS.refresh();
     }, []);
-
+    const paddingStyle='px-8 py-8 xl:px-36 2xl:px-44 w-full relative';
   return (
     <Provider store = {store}>
       <Router>
         <div className="App">
-          <div className='px-8 py-8 xl:px-36 2xl:px-44 w-full relative'>
+          <div >
             <Routes>
-              <Route path="/" element={<Home/>}/>
-              <Route path="/pokemon" element={<Pokemon/>}/>
-              <Route path="/abilities" element={<Abilities/>}/>
+              <Route path="/" element={<Home padding={paddingStyle}/>}/>
+              <Route path="/pokemon" element={<Pokemon padding={paddingStyle}/>}/>
+              <Route path="/pokemon/:pokemonId" element={<PokemonInfo padding={paddingStyle}/>} />
+              <Route path="/abilities" element={<Abilities padding={paddingStyle}/>}/>
               <Route path="/*" element={<Notfound/>}/>
             </Routes>
           </div>

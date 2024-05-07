@@ -10,7 +10,7 @@ import ScrollTrigger from 'gsap/ScrollTrigger';
 import gsap from "gsap";
 gsap.registerPlugin(ScrollTrigger);
 
-function Abilities() {
+function Abilities(props: any) {
   const genericFunctions = new Generics();
   const dispatch = useDispatch();
   const [displayLoader, setDisplayLoader]= useState(false);
@@ -70,7 +70,7 @@ function Abilities() {
 
   if(!displayLoader){
     return (
-      <>
+      <div className={props.padding}>
         <Header link='home'/>
         <h1 className=' main-title text-base sm:text-[2.5rem] mt-4 sm:mt-12 w-full text-left mb-2'> Abilities</h1>
         <SearchBar search={searchAbilities} placeholder={'Search an abilitiy !!!'} />
@@ -89,7 +89,7 @@ function Abilities() {
           ))} 
         </div> 
         <a className="mt-10 block font-semibold text-white rounded px-4 py-2 md:w-fit bg-black" href="https://twitter.com/ivan_dzoibo" target="_blank" rel="noreferrer">© By Dzoibo ivan</a>
-      </>
+      </div>
     )
   }else{
     return (

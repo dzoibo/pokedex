@@ -10,7 +10,7 @@ import Cries from '../../components/cries';
 import { loadPokemon } from '../../redux/pokemon/actionPokemon';
 import Loader from '../../components/loader/loader';
 
-const Landing = () => {
+const Landing = (props: any) => {
   const menuCardStyle= 'overflow-hidden relative shadow-md px-0 sm:px-4 py-5 sm:py-8 rounded-xl sm:rounded-3xl text-white font-bold text-xl sm:text-2xl space-[0.5] before:absolute before:w-32 before:h-32 before:rounded-full before:rotate-45 before:-top-20 before:-left-16 before:bg-white/20 hover:before:bg-white/40 before:transition-all bg-grass shadow-grass/80 ';
   const [pokemon,setPokemon]= useState( new Pokemon());
   const [displayLoader, setDisplayLoader]= useState(true)
@@ -37,7 +37,7 @@ const Landing = () => {
 
   if(!displayLoader){
     return (
-      <>
+      <div className={props.padding}>
         <Header/>
         <div>
           <h1 data-aos="fade-up" className=' main-title text-xl sm:text-[2.5rem] mt-4 sm:mt-12 w-full text-left mb-2'> Welcome to the pokedev</h1>
@@ -66,9 +66,9 @@ const Landing = () => {
               <div className='font-bold mb-2.5 sm:mb-0'>#{pokemon.id} </div>
   
               <h1 className='flex items-center text-3xl self-start sm:text-5xl font-bold leading-[.05em]'>
-                <a href='#' className='-ml-4 cursor-pointer px-4 py-2 flex items-center hover:bg-white/20 cursor rounded-md'>
+                <Link  to={`/pokemon/${pokemon}`} className='-ml-4 cursor-pointer px-4 py-2 flex items-center hover:bg-white/20 cursor rounded-md'>
                   {pokemon.name}
-                </a>
+                </Link>
                 < Cries url={pokemon.cries} />
               </h1>
             </div>
@@ -90,7 +90,7 @@ const Landing = () => {
         </div> 
         <a className="mt-10 block font-semibold text-white rounded px-4 py-2 md:w-fit bg-black" href="https://twitter.com/ivan_dzoibo" target="_blank" rel="noreferrer">© By Dzoibo ivan</a>
 
-      </>
+      </div>
     )
   }else{
     return (

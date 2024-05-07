@@ -8,7 +8,7 @@ import Generics from '../../services/models/model';
 import Loader from '../../components/loader/loader';
 import { loadPokemon } from '../../redux/pokemon/actionPokemon';
 
-function Pokemon() {
+function Pokemon(props: any) {
   const genericFunctions = new Generics();
   const dispatch = useDispatch()
   const pokemonListSaved=useSelector((state:any) => state.pokemonList);
@@ -53,7 +53,7 @@ function Pokemon() {
 
   if(!displayLoader){
     return (
-      <>
+      <div className={props.padding}>
           <Header link='home'/>
           <h1 className=' main-title text-base sm:text-[2.5rem] mt-4 sm:mt-12 w-full text-left mb-2'> Pokemons</h1>
           <SearchBar search={searchPokemon} placeholder={'Search a pokemon !!!'} />
@@ -64,7 +64,7 @@ function Pokemon() {
             ))} 
           </div>
           <a className="mt-10 block font-semibold text-white rounded px-4 py-2 md:w-fit bg-black" href="https://twitter.com/ivan_dzoibo" target="_blank" rel="noreferrer">© By Dzoibo ivan</a>
-      </>
+      </div>
     )
   }else{
     return (
