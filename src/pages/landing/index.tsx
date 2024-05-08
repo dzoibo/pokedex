@@ -46,18 +46,18 @@ const Landing = (props: any) => {
               <p className='ml-6 sm:ml-12'>Pokémons</p> 
               <img className='absolute -right-8 -bottom-6 h-36 w-36' alt='pokeball icon' src={pokeball}/>
             </Link>
-            <p data-aos="fade-up" data-aos-delay="200" className={menuCardStyle+'bg-[rgba(220,101,97,0.5)] hover:before:!bg-white/20'}> {/* bg-[#dc6661]  */}
+            <div data-aos="fade-up" data-aos-delay="200" className={menuCardStyle+'bg-[rgba(220,101,97,0.5)] hover:before:!bg-white/20'}> {/* bg-[#dc6661]  */}
               <p className='ml-6 sm:ml-12'>Moves</p> 
               <img className='absolute -right-8 -bottom-6 h-6 w-36' alt='pokeball icon' src={pokeball}/>
-            </p>
+            </div>
             <Link to='abilities' data-aos="fade-up" data-aos-delay="300" className={menuCardStyle+'bg-[#75aef0]  '}> 
               <p className='ml-6 sm:ml-12'>Abilities</p> 
               <img className='absolute -right-8 -bottom-6 h-36 w-36' alt='pokeball icon' src={pokeball}/>
             </Link>
-            <p data-aos="fade-up" data-aos-delay="400" className={menuCardStyle+'bg-[rgba(247,206,92,0.50)] hover:before:!bg-white/20'}>
+            <div data-aos="fade-up" data-aos-delay="400" className={menuCardStyle+'bg-[rgba(247,206,92,0.50)] hover:before:!bg-white/20'}>
               <p className='ml-6 sm:ml-12 '>items</p> 
               <img className='absolute -right-8 -bottom-6 h-36 w-36' alt='pokeball icon' src={pokeball}/>
-            </p>
+            </div>
           </div>
           
           <div data-aos="fade-up" data-aos-delay="550" className={menuCardStyle+' '+ pokemon.species.color.backgroung+ ' !px-6 sm:!px-16 mt-10 '} /* style={{background:pokemon.species.color.name}} */>

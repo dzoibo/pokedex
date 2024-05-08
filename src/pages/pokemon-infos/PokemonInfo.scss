@@ -11,6 +11,14 @@
     padding: .25rem .5rem;;
     border-radius: 8px;
     background-color: #E5E7EB;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    span{
+        font-weight: 400;
+        text-transform: initial;
+        background-color: transparent;
+    }
 }
 
 .stat-item{

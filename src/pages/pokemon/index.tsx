@@ -20,7 +20,7 @@ function Pokemon(props: any) {
   useEffect(() => {
     if(pokemonListSaved.length<=1){
       setDisplayLoader(true);
-      genericFunctions.getPokemons(1,151).then((response: any)=>{
+      genericFunctions.getPokemons(1,10).then((response: any)=>{
         setPokemonList(response);
         dispatch(loadPokemon(response));
         setDisplayLoader(false);
@@ -55,7 +55,7 @@ function Pokemon(props: any) {
     return (
       <div className={props.padding}>
           <Header link='home'/>
-          <h1 className=' main-title text-base sm:text-[2.5rem] mt-4 sm:mt-12 w-full text-left mb-2'> Pokemons</h1>
+          <h1 className=' main-title text-lg sm:text-[2.5rem] mt-4 sm:mt-12 w-full text-left mb-2'> Pokemons</h1>
           <SearchBar search={searchPokemon} placeholder={'Search a pokemon !!!'} />
           <TypeMenu filter={filterPokemon} />
           <div className='flex w-full justify-center gap-x-6 flex-wrap'>

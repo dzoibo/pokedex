@@ -19,7 +19,7 @@ function TypeMenu(props: any) {
       })
     },[]);
 
-    const updateFilter= (type: string)=>{
+    const updateFilter= (type: any)=>{
       setType(type);
       props.filter(type);
     }
