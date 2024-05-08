@@ -30,14 +30,14 @@ function TypeMenu(props: any) {
       <div ref={container} className='custom-scrollBar w-full overflow-x-auto h-20 flex gap-3 mt-3'>
         <button onClick={()=>updateFilter('All')}  className="after:bg-black opacity-0"  >
           <span 
-          className={`px-5 py-3  ${selectedType===`All`? `text-white bg-black` : 'text-black bg-white'} hover:border-b-6 hover:border-solid after:bg-black border-2 border-solid border-black`} >
+          className={`px-5 py-3 uppercase  ${selectedType===`All`? `text-white bg-black` : 'text-black bg-white'} hover:border-b-6 hover:border-solid after:bg-black border-2 border-solid border-black`} >
             All
           </span>
         </button >
         {TYPE.filter(type=>type.name!=='All').map(type => (
           <button  onClick={()=>updateFilter(type.name)} className={`opacity-0 after:${type.bgColor}`} key={type.name} >
             <span 
-            className={`px-5 py-3  ${type.name===selectedType ? `text-white ${type.bgColor}`  : type.textColor} ${` `} hover:border-b-6 hover:border-solid hover:${type.borderColor} border-2 border-solid ${type.borderColor} after:${type.bgColor}`} > {/* the border-bottom when over here is to fix a gap that we have with the animation */}
+            className={`px-5 py-3 uppercase ${type.name===selectedType ? `text-white ${type.bgColor}`  : type.textColor} ${` `} hover:border-b-6 hover:border-solid hover:${type.borderColor} border-2 border-solid ${type.borderColor} after:${type.bgColor}`} > {/* the border-bottom when over here is to fix a gap that we have with the animation */}
               {type.name}
             </span>
           </button>

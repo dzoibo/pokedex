@@ -11,6 +11,7 @@ import male from '../../assets/images/male.png';
 import female from '../../assets/images/female.png';
 import { useParams } from 'react-router-dom';
 import pokeball from '../../assets/images/pokeball.svg';
+import graypokeball from '../../assets/images/pokeball-gray.svg';
 import './PokemonInfo.scss';
 import Moves from '../../components/moves';
 
@@ -281,7 +282,7 @@ function PokemonInfo (props: any) {
               
           </div>
 
-          <div className=' px-8 sm:px-12 py-6 bg-white rounded-3xl min-h-[60%] max-w-3xl shadow-xl'>
+          <div className='hidden px-8 sm:px-12 py-6 bg-white rounded-3xl min-h-[60%] max-w-3xl shadow-xl'>
             <ul className='flex justify-between items-center px-4 py-7 text-gray-400 '>
               <li className={menuItemStyle}>
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" aria-hidden="true" className="w-8 h-8 sm:w-6 sm:h-6 sm:mr-2"><path strokeLinecap="round" strokeLinejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z"></path></svg>
@@ -306,6 +307,80 @@ function PokemonInfo (props: any) {
             </ul>
             <Moves typeName='poison' />
           </div>
+
+          <div className='px-8 sm:px-12 py-6 bg-white rounded-3xl min-h-[60%] max-w-3xl shadow-xl'>
+            <ul className='flex justify-between items-center px-4 py-7 text-gray-400 '>
+              <li className={menuItemStyle}>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" aria-hidden="true" className="w-8 h-8 sm:w-6 sm:h-6 sm:mr-2"><path strokeLinecap="round" strokeLinejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z"></path></svg>
+                <span className='hidden sm:block capitalize'>About</span>
+              </li>
+
+              <li className={menuItemStyle}>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" aria-hidden="true" className="w-8 h-8 sm:w-6 sm:h-6 sm:mr-2"><path strokeLinecap="round" strokeLinejoin="round" d="M7.5 14.25v2.25m3-4.5v4.5m3-6.75v6.75m3-9v9M6 20.25h12A2.25 2.25 0 0020.25 18V6A2.25 2.25 0 0018 3.75H6A2.25 2.25 0 003.75 6v12A2.25 2.25 0 006 20.25z"></path></svg>
+                <span className='hidden sm:block capitalize'>Stats</span>
+              </li>
+
+              <li className={menuItemStyle}>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" aria-hidden="true" className="w-8 h-8 sm:w-6 sm:h-6 sm:mr-2"><path strokeLinecap="round" strokeLinejoin="round" d="M7.5 14.25v2.25m3-4.5v4.5m3-6.75v6.75m3-9v9M6 20.25h12A2.25 2.25 0 0020.25 18V6A2.25 2.25 0 0018 3.75H6A2.25 2.25 0 003.75 6v12A2.25 2.25 0 006 20.25z"></path></svg>
+                <span className='hidden sm:block capitalize'>Evolution</span>
+              </li>
+
+              <li className={menuItemStyle}>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" aria-hidden="true" className="w-8 h-8 sm:w-6 sm:h-6 sm:mr-2"><path strokeLinecap="round" strokeLinejoin="round" d="M10.05 4.575a1.575 1.575 0 10-3.15 0v3m3.15-3v-1.5a1.575 1.575 0 013.15 0v1.5m-3.15 0l.075 5.925m3.075.75V4.575m0 0a1.575 1.575 0 013.15 0V15M6.9 7.575a1.575 1.575 0 10-3.15 0v8.175a6.75 6.75 0 006.75 6.75h2.018a5.25 5.25 0 003.712-1.538l1.732-1.732a5.25 5.25 0 001.538-3.712l.003-2.024a.668.668 0 01.198-.471 1.575 1.575 0 10-2.228-2.228 3.818 3.818 0 00-1.12 2.687M6.9 7.575V12m6.27 4.318A4.49 4.49 0 0116.35 15m.002 0h-.002"></path></svg>
+                <span className='hidden sm:block  capitalize'>Moves</span>
+              </li>
+
+            </ul>
+            
+              <h3 className='font-bold text-xl mt-2 mb-5'>
+                  Evolution chain
+              </h3>
+
+              <div className='flex justify-between px-1 mb-5'>
+                <div className='relative flex flex-col items-center group gap-2'>
+                  <img className='absolute top-1 left-1 opacity-80 w-11/12 h-auto group-hover:rotate-45 transition' src={graypokeball} alt="pokeball" />
+                  <img className='relative z-10  max-h-24 w-auto group-hover:drop-shadow-md'   src="https://projectpokemon.org/images/normal-sprite/abra.gif" alt="evolution gif" />
+                  <span >Abra</span>
+                </div>
+
+                <div className='flex flex-col items-center'>
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" className="w-10 h-10 text-gray-300 mb-4 m-auto">
+                    <path fill-rule="evenodd" d="M12.97 3.97a.75.75 0 011.06 0l7.5 7.5a.75.75 0 010 1.06l-7.5 7.5a.75.75 0 11-1.06-1.06l6.22-6.22H3a.75.75 0 010-1.5h16.19l-6.22-6.22a.75.75 0 010-1.06z" clip-rule="evenodd"></path>
+                  </svg>
+                  <span className='font-bold '>Lvl 16</span>
+                </div>
+                
+                <div className='relative flex flex-col items-center group gap-2'>
+                  <img className='absolute top-1 left-1 opacity-80 w-11/12 h-auto group-hover:rotate-45 transition' src={graypokeball} alt="pokeball" />
+                  <img className='relative max-h-24 w-auto group-hover:drop-shadow-md z-10'  src="https://projectpokemon.org/images/normal-sprite/abra.gif" alt="evolution gif" />
+                  <span >Abra</span>
+                </div>
+              </div>
+
+              <div className='flex justify-between px-1 mb-5'>
+                <div className='relative flex flex-col items-center group gap-2'>
+                  <img className='absolute top-1 left-1 opacity-80 w-11/12 h-auto group-hover:rotate-45 transition' src={graypokeball} alt="pokeball" />
+                  <img className='relative max-h-24 w-auto group-hover:drop-shadow-md z-10'  src="https://projectpokemon.org/images/normal-sprite/abra.gif" alt="evolution gif" />
+                  <span >Abra</span>
+                </div>
+
+                <div className='flex flex-col items-center'>
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" className="w-10 h-10 text-gray-300 mb-4 m-auto">
+                    <path fill-rule="evenodd" d="M12.97 3.97a.75.75 0 011.06 0l7.5 7.5a.75.75 0 010 1.06l-7.5 7.5a.75.75 0 11-1.06-1.06l6.22-6.22H3a.75.75 0 010-1.5h16.19l-6.22-6.22a.75.75 0 010-1.06z" clip-rule="evenodd"></path>
+                  </svg>
+                  <span className='font-bold '>Lvl 16</span>
+                </div>
+                
+                <div className='relative flex flex-col items-center group gap-2'>
+                  <img className='absolute top-1 left-1 opacity-80 w-11/12 h-auto group-hover:rotate-45 transition' src={graypokeball} alt="pokeball" />
+                  <img className='relative max-h-24 w-auto group-hover:drop-shadow-md z-10'  src="https://projectpokemon.org/images/normal-sprite/abra.gif" alt="evolution gif" />
+                  <span >Abra</span>
+                </div>
+              </div>
+
+            <Moves typeName='poison' />
+          </div>
+
         </div>
        
 
