@@ -35,9 +35,9 @@ function TypeMenu(props: any) {
           </span>
         </button >
         {TYPE.filter(type=>type.name!=='All').map(type => (
-          <button  onClick={()=>updateFilter(type.name)} className={`opacity-0 after:${type.bgColor}`} key={type.name} >
+          <button  onClick={()=>updateFilter(type.name)} className={`opacity-0 ${type.afterBgColor}`} key={type.name} >
             <span 
-            className={`px-5 py-3 uppercase ${type.name===selectedType ? `text-white ${type.bgColor}`  : type.textColor} ${` `} hover:border-b-6 hover:border-solid hover:${type.borderColor} border-2 border-solid ${type.borderColor} after:${type.bgColor}`} > {/* the border-bottom when over here is to fix a gap that we have with the animation */}
+            className={`px-5 py-3 uppercase ${type.name===selectedType ? `text-white ${type.bgColor}`  : type.textColor} ${` `} hover:border-b-6 hover:border-solid hover:${type.borderColor} border-2 border-solid ${type.borderColor} ${type.afterBgColor}`} > {/* the border-bottom when over here is to fix a gap that we have with the animation */}
               {type.name}
             </span>
           </button>
