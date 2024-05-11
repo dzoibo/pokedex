@@ -36,10 +36,12 @@ export interface Pokemon {
     order!: number
     species!: Species;
     image!: string;
-    stats!: Stat[]
-    types!: string[]
-    weight!: number
+    stats!: Stat[];
+    types!: string[];
+    weight!: number;
+    evolutions: Evolution[];
     constructor() {
+        this.evolutions=[];
         this.abilities=[];
         this.game_indices=[];
         this.stats=[];
@@ -86,7 +88,7 @@ export interface Pokemon {
     is_mythical: boolean
     name: string
     names: Name[]
-    order: number
+    order: number;
     pal_park_encounters: PalParkEncounter[]
     pokedex_numbers: PokedexNumber[]
     shape: Shape
@@ -96,6 +98,7 @@ export interface Pokemon {
   export interface Color {
     text: string,
     backgroung: string,
+    name: string ,
     url: string
   }
   
@@ -203,5 +206,10 @@ export interface Pokemon {
     short_desc!: string;
   }
 
+  export class Evolution{
+    initialName!: string;
+    finalName!: string;
+    minLevel!: string;
+  }
   
   

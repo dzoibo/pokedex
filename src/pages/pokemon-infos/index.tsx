@@ -4,7 +4,7 @@ import Generics from '../../services/models/model';
 import React, { useState,useEffect } from 'react';
 import Header from '../../components/header';
 import Cries from '../../components/cries';
-import { Pokemon } from '../../services/interfaces';
+import { Evolution, Pokemon } from '../../services/interfaces';
 import { loadPokemon } from '../../redux/pokemon/actionPokemon';
 import Loader from '../../components/loader/loader';
 import male from '../../assets/images/male.png';
@@ -21,7 +21,7 @@ function PokemonInfo (props: any) {
   const dispatch = useDispatch();
   const pokemonListSaved=useSelector((state:any) => state.pokemonList);
   const pokemonId= parseInt(useParams().pokemonId as string);
-  const [displaySession,setDisplaySession]= useState('All');
+  const [displayedSession,setDisplayedSession]= useState('');
   const [displayLoader, setDisplayLoader]= useState(true);
   const [pokemon,setPokemon]= useState( new Pokemon());
   const [pokemonList, setPokemonList]=useState([]);
@@ -31,7 +31,7 @@ function PokemonInfo (props: any) {
   const previousSelectedImage='transition-all h-36 sm:h-44 md:h-52 -left-40 sm:-left-48 md:-left-60 top-12 brightness-0 contrast-50 opacity-70 hover:opacity-100 previous-pokemon-picture select-none';
   const aboutItemStyle= 'flex items-center mt-1';
   const statItemStyle='flex items-center my-3 '
-  const menuItemStyle='flex items-center sm:pb-2 sm:pr-8 text-sm transition-colors duration-200 cursor-pointer md:text-lg hover:text-black'
+  const menuItemStyle=' flex items-center sm:pb-2 sm:pr-8 text-sm transition-colors duration-200 cursor-pointer md:text-lg hover:text-black'
   useEffect(() => {
     if(pokemonListSaved.length<=1){
       setDisplayLoader(true);
@@ -48,6 +48,8 @@ function PokemonInfo (props: any) {
       setDisplayLoader(false);
     }
   }, []);
+
+
   
   if(!displayLoader){
     return (
@@ -93,293 +95,179 @@ function PokemonInfo (props: any) {
               <img className={previousSelectedImage} src={(pokemonList[pokemonId] as any).image} alt="next pokemon" />
             </div>
           }
-          <div className=' hidden px-8 sm:px-12 py-6 bg-white rounded-3xl min-h-[60%] max-w-3xl shadow-xl m-auto'>
+          <div className=' px-8 sm:px-12 py-6 bg-white rounded-3xl min-h-[60%] max-w-3xl shadow-xl m-auto'>
               <ul className='flex justify-between items-center px-4 py-7 text-gray-400  '>
-                <li className={menuItemStyle}>
+                <li  className={menuItemStyle+' '+displayedSession==='about'?'text-black':'' } onClick={()=> setDisplayedSession('about')}>
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" aria-hidden="true" className="w-8 h-8 sm:w-6 sm:h-6 sm:mr-2"><path strokeLinecap="round" strokeLinejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z"></path></svg>
                   <span className='hidden sm:block capitalize'>About</span>
                 </li>
 
-                <li className={menuItemStyle}>
+                <li  className={menuItemStyle+' '+displayedSession==='stats'?'text-black':'' } onClick={()=> setDisplayedSession('stats')}>
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" aria-hidden="true" className="w-8 h-8 sm:w-6 sm:h-6 sm:mr-2"><path strokeLinecap="round" strokeLinejoin="round" d="M7.5 14.25v2.25m3-4.5v4.5m3-6.75v6.75m3-9v9M6 20.25h12A2.25 2.25 0 0020.25 18V6A2.25 2.25 0 0018 3.75H6A2.25 2.25 0 003.75 6v12A2.25 2.25 0 006 20.25z"></path></svg>
                   <span className='hidden sm:block capitalize'>Stats</span>
                 </li>
 
-                <li className={menuItemStyle}>
+                <li  className={menuItemStyle+' '+displayedSession==='evolution'?'text-black':'' } onClick={()=> setDisplayedSession('evolution')}>
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" aria-hidden="true" className="w-8 h-8 sm:w-6 sm:h-6 sm:mr-2"><path strokeLinecap="round" strokeLinejoin="round" d="M7.5 14.25v2.25m3-4.5v4.5m3-6.75v6.75m3-9v9M6 20.25h12A2.25 2.25 0 0020.25 18V6A2.25 2.25 0 0018 3.75H6A2.25 2.25 0 003.75 6v12A2.25 2.25 0 006 20.25z"></path></svg>
                   <span className='hidden sm:block capitalize'>Evolution</span>
                 </li>
 
-                <li className={menuItemStyle}>
+                <li  className={menuItemStyle+' '+displayedSession==='moves'?'text-black':'' } onClick={()=> setDisplayedSession('moves')}>
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" aria-hidden="true" className="w-8 h-8 sm:w-6 sm:h-6 sm:mr-2"><path strokeLinecap="round" strokeLinejoin="round" d="M10.05 4.575a1.575 1.575 0 10-3.15 0v3m3.15-3v-1.5a1.575 1.575 0 013.15 0v1.5m-3.15 0l.075 5.925m3.075.75V4.575m0 0a1.575 1.575 0 013.15 0V15M6.9 7.575a1.575 1.575 0 10-3.15 0v8.175a6.75 6.75 0 006.75 6.75h2.018a5.25 5.25 0 003.712-1.538l1.732-1.732a5.25 5.25 0 001.538-3.712l.003-2.024a.668.668 0 01.198-.471 1.575 1.575 0 10-2.228-2.228 3.818 3.818 0 00-1.12 2.687M6.9 7.575V12m6.27 4.318A4.49 4.49 0 0116.35 15m.002 0h-.002"></path></svg>
                   <span className='hidden sm:block  capitalize'>Moves</span>
                 </li>
 
-              </ul>  
+              </ul> 
 
-              <div>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis architecto quas facere asperiores repellat nemo consequatur quisquam obcaecati quaerat molestiae.</p>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae magni neque repellendus, suscipit autem, voluptates aliquam minima rerum ipsam, pariatur incidunt at asperiores? A eaque quam cupiditate, laboriosam adipisci quaerat!</p>
-              </div>
-
-              <div className='flex rounded-xl p-4 justify-around mx-0 md:mx-8 my-8 bg-white shadow-[1px_2px_17px_-1px_rgba(56,56,56,0.45)]'>
-                  <div className='*:text-center'>
-                    <div className='flex items-center justify-center'>
-                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" aria-hidden="true" className="inline-block w-5 h-5 mr-1"><path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5"></path></svg>
-                      <span className=' text-gray-500 font-semibold capitalize'>Height</span>
-                    </div>
-                    <div className='mt-1'>
-                      50 cm
-                    </div>
-                  </div>
-                  <div className='*:text-center'>
-                    <div className='flex items-center'>
-                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" aria-hidden="true" className="inline-block w-6 h-6 mr-2"><path strokeLinecap="round" strokeLinejoin="round" d="M12 3v17.25m0 0c-1.472 0-2.882.265-4.185.75M12 20.25c1.472 0 2.882.265 4.185.75M18.75 4.97A48.416 48.416 0 0012 4.5c-2.291 0-4.545.16-6.75.47m13.5 0c1.01.143 2.01.317 3 .52m-3-.52l2.62 10.726c.122.499-.106 1.028-.589 1.202a5.988 5.988 0 01-2.031.352 5.988 5.988 0 01-2.031-.352c-.483-.174-.711-.703-.59-1.202L18.75 4.971zm-16.5.52c.99-.203 1.99-.377 3-.52m0 0l2.62 10.726c.122.499-.106 1.028-.589 1.202a5.989 5.989 0 01-2.031.352 5.989 5.989 0 01-2.031-.352c-.483-.174-.711-.703-.59-1.202L5.25 4.971z"></path></svg>
-                      <span className='font-semibold text-gray-500 capitalize'>Weight</span>
-                    </div>
-                    <div className='mt-1'>
-                      9kg
-                    </div>
+              {displayedSession==='about' && (
+                <>
+                  <div>
+                    <p>{genericFunctions.getDesc(pokemon.species)} </p>
+                    <p>His main color is {pokemon.species.color.name} and lives in {pokemon.species.habitat.name} </p>
                   </div>
 
-                  
-              </div>
+                  <div className='flex rounded-xl p-4 justify-around mx-0 md:mx-8 my-8 bg-white shadow-[1px_2px_17px_-1px_rgba(56,56,56,0.45)]'>
+                      <div className='*:text-center'>
+                        <div className='flex items-center justify-center'>
+                          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" aria-hidden="true" className="inline-block w-5 h-5 mr-1"><path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5"></path></svg>
+                          <span className=' text-gray-500 font-semibold capitalize'>Height</span>
+                        </div>
+                        <div className='mt-1'>
+                          {pokemon.height} cm
+                        </div>
+                      </div>
+                      <div className='*:text-center'>
+                        <div className='flex items-center'>
+                          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" aria-hidden="true" className="inline-block w-6 h-6 mr-2"><path strokeLinecap="round" strokeLinejoin="round" d="M12 3v17.25m0 0c-1.472 0-2.882.265-4.185.75M12 20.25c1.472 0 2.882.265 4.185.75M18.75 4.97A48.416 48.416 0 0012 4.5c-2.291 0-4.545.16-6.75.47m13.5 0c1.01.143 2.01.317 3 .52m-3-.52l2.62 10.726c.122.499-.106 1.028-.589 1.202a5.988 5.988 0 01-2.031.352 5.988 5.988 0 01-2.031-.352c-.483-.174-.711-.703-.59-1.202L18.75 4.971zm-16.5.52c.99-.203 1.99-.377 3-.52m0 0l2.62 10.726c.122.499-.106 1.028-.589 1.202a5.989 5.989 0 01-2.031.352 5.989 5.989 0 01-2.031-.352c-.483-.174-.711-.703-.59-1.202L5.25 4.971z"></path></svg>
+                          <span className='font-semibold text-gray-500 capitalize'>Weight</span>
+                        </div>
+                        <div className='mt-1'>
+                          {pokemon.weight/10} kg
+                        </div>
+                      </div>
 
-              <h3 className='font-bold text-xl mt-2 mb-5'>
-                  And what more ?
-              </h3>
-
-              <div className={aboutItemStyle+ 'sm:flex-nowrap flex-wrap'}>
-                <div className='about-list-title'>Abilities </div>
-                <div className='flex gap-2 '>
-                  <div className='about-list-badge'>Torrent</div>
-                  <div className='about-list-badge'>Rain dish</div>
-                </div>
-              </div>
-
-              <div className={aboutItemStyle}>
-                <div className='about-list-title'>Growth rate</div>
-                <div>Medium-slow</div>
-              </div>
-
-              <div className={aboutItemStyle}>
-                <div className='about-list-title'>Capture rate</div>
-                <div>45%</div>
-              </div>
-
-              <div className={aboutItemStyle}>
-                <div className='about-list-title'>Base hapiness</div>
-                <div>50</div>
-              </div>
-
-              <div className={aboutItemStyle + 'sm:flex-nowrap flex-wrap'}>
-                <div className='about-list-title'>Egg groups</div>
-                <div className='flex gap-4'>
-                  <div className='about-list-badge'>Monster</div>
-                  <div className='about-list-badge'>Water1</div>
-                </div>
-              </div>
-
-              <div className={aboutItemStyle}>
-                <div className='about-list-title'>Gender rate</div>
-                <div className='flex gap-2 *:flex *:gap-1 *:items-center font-normal' >
-                  <div >
-                    <img src={male} alt="male-gender" className='h-6'/>
-                    <span className='font-normal'>87.4%</span>
+                      
                   </div>
-                  <div >
-                    <img src={female} alt="female-gender" className='h-6'/>
-                    <span className='font-normal'>87.4%</span>
-                  </div>
-                </div>
-              </div>
 
-              <div className={aboutItemStyle + 'sm:flex-nowrap flex-wrap'}>
-                <div className='about-list-title'>Encounters</div>
-                <div className='about-list-badge'>Pallet town area</div>
-              </div>
+                  <h3 className='font-bold text-xl mt-2 mb-5'>
+                      And what more ?
+                  </h3>
+
+                  <div className={aboutItemStyle+ 'sm:flex-nowrap flex-wrap'}>
+                    <div className='about-list-title'>Abilities </div>
+                    <div className='flex gap-2 '>
+                      {pokemon.abilities.map(ability => (
+                        <div className='about-list-badge'>{ability}</div>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className={aboutItemStyle} >
+                    <div className='about-list-title'>Growth rate</div>
+                    <div> {pokemon.species.growth_rate.name} </div>
+                  </div>
+
+                  <div className={aboutItemStyle}>
+                    <div className='about-list-title'>Capture rate</div>
+                    <div> {pokemon.species.capture_rate} %</div>
+                  </div>
+
+                  <div className={aboutItemStyle}>
+                    <div className='about-list-title'>Base hapiness</div>
+                    <div> {pokemon.species.base_happiness} %</div>
+                  </div>
+
+                  <div className={aboutItemStyle + 'sm:flex-nowrap flex-wrap'}>
+                    <div className='about-list-title'>Egg groups</div>
+                    <div className='flex gap-4'>
+                      {pokemon.species.egg_groups.map(group => (
+                        <div className='about-list-badge'>{group.name}</div>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className={aboutItemStyle}>
+                    <div className='about-list-title'>Gender rate</div>
+                    <div className='flex gap-2 *:flex *:gap-1 *:items-center font-normal' >
+                      <div >
+                        <img src={male} alt="male-gender" className='h-6'/>
+                        <span className='font-normal'>{pokemon.species.gender_rate} %</span>
+                      </div>
+                      <div >
+                        <img src={female} alt="female-gender" className='h-6'/>
+                        <span className='font-normal'>{pokemon.species.gender_rate} %</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div className={aboutItemStyle + 'sm:flex-nowrap flex-wrap'}>
+                    <div className='about-list-title'>Encounters</div>
+                    <div className='flex gap-4'>
+                      {pokemon.species.egg_groups.map(group => (
+                        <div className='about-list-badge'>{group.name}</div>
+                      ))}
+                    </div>
+                  </div>
+                </>
+              )} 
+
+              {displayedSession==='stats' && (
+                <>
+                  {pokemon.stats.map(stat => (
+                    <div key={stat.stat.name} className={statItemStyle}>
+                     <div className='about-list-title'>{stat.stat.name} </div>
+                     <div className='stat-item'>
+                       <span>{stat.base_stat}</span>
+                       <div className='bg-gray-100'>
+                         <div className='bg-[#58af94]' style={{width: stat.base_stat/100 +'%'}}></div>
+                       </div>
+                     </div>
+                   </div> 
+                  ))}
+                </>
+              )}
+
+              {displayedSession === 'evolution' && (
+                <>
+                  <h3 className='font-bold text-xl mt-2 mb-5'>
+                  Evolution chain
+                  </h3>
+                  {pokemon.evolutions.map(evolution => (
+                    <div className='flex justify-between px-1 mb-5'>
+                      <div className='relative flex flex-col items-center group gap-2'>
+                        <img className='absolute top-1 left-1 opacity-80 w-11/12 h-auto group-hover:rotate-45 transition' src={graypokeball} alt="pokeball" />
+                        <img className='relative z-10  max-h-24 w-auto group-hover:drop-shadow-md'   src={'https://projectpokemon.org/images/normal-sprite/'+evolution.initialName+'.gif'} alt="evolution gif" />
+                        <span>{evolution.initialName} </span>
+                      </div>
+
+                      <div className='flex flex-col items-center'>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" className="w-10 h-10 text-gray-300 mb-4 m-auto">
+                          <path fill-rule="evenodd" d="M12.97 3.97a.75.75 0 011.06 0l7.5 7.5a.75.75 0 010 1.06l-7.5 7.5a.75.75 0 11-1.06-1.06l6.22-6.22H3a.75.75 0 010-1.5h16.19l-6.22-6.22a.75.75 0 010-1.06z" clip-rule="evenodd"></path>
+                        </svg>
+                        {evolution.minLevel!==null &&
+                          <span className='font-bold'>{evolution.minLevel}</span>
+                        }
+                      </div>
+                      
+                      <div className='relative flex flex-col items-center group gap-2'>
+                        <img className='absolute top-1 left-1 opacity-80 w-11/12 h-auto group-hover:rotate-45 transition' src={graypokeball} alt="pokeball" />
+                        <img className='relative max-h-24 w-auto group-hover:drop-shadow-md z-10'  src={'https://projectpokemon.org/images/normal-sprite/'+evolution.initialName+'.gif'} alt="evolution gif" />
+                        <span >{evolution.finalName}</span>
+                      </div>
+                    </div>
+                  ))}
+                </>
+              )}
+
+              {displayedSession=== 'moves' && (
+                <>
+                  <Moves typeName='poison' />
+                </>
+              )}
           </div> 
 
-          <div className='hidden w-screen px-8 sm:px-12 py-6 bg-white rounded-3xl min-h-[60%] max-w-3xl shadow-xl m-auto'>
-              <ul className='flex justify-between items-center px-4 py-7 text-gray-400 '>
-                <li className={menuItemStyle}>
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" aria-hidden="true" className="w-8 h-8 sm:w-6 sm:h-6 sm:mr-2"><path strokeLinecap="round" strokeLinejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z"></path></svg>
-                  <span className='hidden sm:block capitalize'>About</span>
-                </li>
+         
 
-                <li className={menuItemStyle}>
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" aria-hidden="true" className="w-8 h-8 sm:w-6 sm:h-6 sm:mr-2"><path strokeLinecap="round" strokeLinejoin="round" d="M7.5 14.25v2.25m3-4.5v4.5m3-6.75v6.75m3-9v9M6 20.25h12A2.25 2.25 0 0020.25 18V6A2.25 2.25 0 0018 3.75H6A2.25 2.25 0 003.75 6v12A2.25 2.25 0 006 20.25z"></path></svg>
-                  <span className='hidden sm:block capitalize'>Stats</span>
-                </li>
-
-                <li className={menuItemStyle}>
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" aria-hidden="true" className="w-8 h-8 sm:w-6 sm:h-6 sm:mr-2"><path strokeLinecap="round" strokeLinejoin="round" d="M7.5 14.25v2.25m3-4.5v4.5m3-6.75v6.75m3-9v9M6 20.25h12A2.25 2.25 0 0020.25 18V6A2.25 2.25 0 0018 3.75H6A2.25 2.25 0 003.75 6v12A2.25 2.25 0 006 20.25z"></path></svg>
-                  <span className='hidden sm:block capitalize'>Evolution</span>
-                </li>
-
-                <li className={menuItemStyle}>
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" aria-hidden="true" className="w-8 h-8 sm:w-6 sm:h-6 sm:mr-2"><path strokeLinecap="round" strokeLinejoin="round" d="M10.05 4.575a1.575 1.575 0 10-3.15 0v3m3.15-3v-1.5a1.575 1.575 0 013.15 0v1.5m-3.15 0l.075 5.925m3.075.75V4.575m0 0a1.575 1.575 0 013.15 0V15M6.9 7.575a1.575 1.575 0 10-3.15 0v8.175a6.75 6.75 0 006.75 6.75h2.018a5.25 5.25 0 003.712-1.538l1.732-1.732a5.25 5.25 0 001.538-3.712l.003-2.024a.668.668 0 01.198-.471 1.575 1.575 0 10-2.228-2.228 3.818 3.818 0 00-1.12 2.687M6.9 7.575V12m6.27 4.318A4.49 4.49 0 0116.35 15m.002 0h-.002"></path></svg>
-                  <span className='hidden sm:block  capitalize'>Moves</span>
-                </li>
-
-              </ul>  
-              <div>
-               <div className={statItemStyle}>
-                  <div className='about-list-title'>Hp </div>
-                  <div className='stat-item'>
-                    <span>60</span>
-                    <div className='bg-gray-100'>
-                      <div className='bg-[#ea7571] '></div>
-                    </div>
-                  </div>
-                </div> 
-                <div className={statItemStyle}>
-                  <div className='about-list-title'>Attack</div>
-                  <div className='stat-item'>
-                    <span>60</span>
-                    <div className='bg-gray-100'>
-                      <div className='bg-[#ea7571] '></div>
-                    </div>
-                  </div>
-                </div> 
-                <div className={statItemStyle}>
-                  <div className='about-list-title'>Defense</div>
-                  <div className='stat-item'>
-                    <span>60</span>
-                    <div className='bg-gray-100'>
-                      <div className='bg-[#ea7571]'></div>
-                    </div>
-                  </div>
-                </div> 
-                <div className={statItemStyle}>
-                  <div className='about-list-title'>Spécial-attack</div>
-                  <div className='stat-item'>
-                    <span>60</span>
-                    <div className='bg-gray-100'>
-                      <div className='bg-[#58af94] '></div>
-                    </div>
-                  </div>
-                </div> 
-                <div className={statItemStyle}>
-                  <div className='about-list-title'>Spécial-defense</div>
-                  <div className='stat-item'>
-                    <span>60</span>
-                    <div className='bg-gray-100'>
-                      <div className='bg-[#58af94] '></div>
-                    </div>
-                  </div>
-                </div> 
-                <div className={statItemStyle}>
-                  <div className='about-list-title'>Speed</div>
-                  <div className='stat-item'>
-                    <span>60</span>
-                    <div className='bg-gray-100'>
-                      <div className='bg-[#ea7571]'></div>
-                    </div>
-                  </div>
-                </div> 
-              </div>
-              
-          </div>
-
-          <div className='hidden px-8 sm:px-12 py-6 bg-white rounded-3xl min-h-[60%] max-w-3xl shadow-xl'>
-            <ul className='flex justify-between items-center px-4 py-7 text-gray-400 '>
-              <li className={menuItemStyle}>
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" aria-hidden="true" className="w-8 h-8 sm:w-6 sm:h-6 sm:mr-2"><path strokeLinecap="round" strokeLinejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z"></path></svg>
-                <span className='hidden sm:block capitalize'>About</span>
-              </li>
-
-              <li className={menuItemStyle}>
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" aria-hidden="true" className="w-8 h-8 sm:w-6 sm:h-6 sm:mr-2"><path strokeLinecap="round" strokeLinejoin="round" d="M7.5 14.25v2.25m3-4.5v4.5m3-6.75v6.75m3-9v9M6 20.25h12A2.25 2.25 0 0020.25 18V6A2.25 2.25 0 0018 3.75H6A2.25 2.25 0 003.75 6v12A2.25 2.25 0 006 20.25z"></path></svg>
-                <span className='hidden sm:block capitalize'>Stats</span>
-              </li>
-
-              <li className={menuItemStyle}>
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" aria-hidden="true" className="w-8 h-8 sm:w-6 sm:h-6 sm:mr-2"><path strokeLinecap="round" strokeLinejoin="round" d="M7.5 14.25v2.25m3-4.5v4.5m3-6.75v6.75m3-9v9M6 20.25h12A2.25 2.25 0 0020.25 18V6A2.25 2.25 0 0018 3.75H6A2.25 2.25 0 003.75 6v12A2.25 2.25 0 006 20.25z"></path></svg>
-                <span className='hidden sm:block capitalize'>Evolution</span>
-              </li>
-
-              <li className={menuItemStyle}>
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" aria-hidden="true" className="w-8 h-8 sm:w-6 sm:h-6 sm:mr-2"><path strokeLinecap="round" strokeLinejoin="round" d="M10.05 4.575a1.575 1.575 0 10-3.15 0v3m3.15-3v-1.5a1.575 1.575 0 013.15 0v1.5m-3.15 0l.075 5.925m3.075.75V4.575m0 0a1.575 1.575 0 013.15 0V15M6.9 7.575a1.575 1.575 0 10-3.15 0v8.175a6.75 6.75 0 006.75 6.75h2.018a5.25 5.25 0 003.712-1.538l1.732-1.732a5.25 5.25 0 001.538-3.712l.003-2.024a.668.668 0 01.198-.471 1.575 1.575 0 10-2.228-2.228 3.818 3.818 0 00-1.12 2.687M6.9 7.575V12m6.27 4.318A4.49 4.49 0 0116.35 15m.002 0h-.002"></path></svg>
-                <span className='hidden sm:block  capitalize'>Moves</span>
-              </li>
-
-            </ul>
-            <Moves typeName='poison' />
-          </div>
-
-          <div className='px-8 sm:px-12 py-6 bg-white rounded-3xl min-h-[60%] max-w-3xl shadow-xl'>
-            <ul className='flex justify-between items-center px-4 py-7 text-gray-400 '>
-              <li className={menuItemStyle}>
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" aria-hidden="true" className="w-8 h-8 sm:w-6 sm:h-6 sm:mr-2"><path strokeLinecap="round" strokeLinejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z"></path></svg>
-                <span className='hidden sm:block capitalize'>About</span>
-              </li>
-
-              <li className={menuItemStyle}>
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" aria-hidden="true" className="w-8 h-8 sm:w-6 sm:h-6 sm:mr-2"><path strokeLinecap="round" strokeLinejoin="round" d="M7.5 14.25v2.25m3-4.5v4.5m3-6.75v6.75m3-9v9M6 20.25h12A2.25 2.25 0 0020.25 18V6A2.25 2.25 0 0018 3.75H6A2.25 2.25 0 003.75 6v12A2.25 2.25 0 006 20.25z"></path></svg>
-                <span className='hidden sm:block capitalize'>Stats</span>
-              </li>
-
-              <li className={menuItemStyle}>
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" aria-hidden="true" className="w-8 h-8 sm:w-6 sm:h-6 sm:mr-2"><path strokeLinecap="round" strokeLinejoin="round" d="M7.5 14.25v2.25m3-4.5v4.5m3-6.75v6.75m3-9v9M6 20.25h12A2.25 2.25 0 0020.25 18V6A2.25 2.25 0 0018 3.75H6A2.25 2.25 0 003.75 6v12A2.25 2.25 0 006 20.25z"></path></svg>
-                <span className='hidden sm:block capitalize'>Evolution</span>
-              </li>
-
-              <li className={menuItemStyle}>
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" aria-hidden="true" className="w-8 h-8 sm:w-6 sm:h-6 sm:mr-2"><path strokeLinecap="round" strokeLinejoin="round" d="M10.05 4.575a1.575 1.575 0 10-3.15 0v3m3.15-3v-1.5a1.575 1.575 0 013.15 0v1.5m-3.15 0l.075 5.925m3.075.75V4.575m0 0a1.575 1.575 0 013.15 0V15M6.9 7.575a1.575 1.575 0 10-3.15 0v8.175a6.75 6.75 0 006.75 6.75h2.018a5.25 5.25 0 003.712-1.538l1.732-1.732a5.25 5.25 0 001.538-3.712l.003-2.024a.668.668 0 01.198-.471 1.575 1.575 0 10-2.228-2.228 3.818 3.818 0 00-1.12 2.687M6.9 7.575V12m6.27 4.318A4.49 4.49 0 0116.35 15m.002 0h-.002"></path></svg>
-                <span className='hidden sm:block  capitalize'>Moves</span>
-              </li>
-
-            </ul>
-            
-              <h3 className='font-bold text-xl mt-2 mb-5'>
-                  Evolution chain
-              </h3>
-
-              <div className='flex justify-between px-1 mb-5'>
-                <div className='relative flex flex-col items-center group gap-2'>
-                  <img className='absolute top-1 left-1 opacity-80 w-11/12 h-auto group-hover:rotate-45 transition' src={graypokeball} alt="pokeball" />
-                  <img className='relative z-10  max-h-24 w-auto group-hover:drop-shadow-md'   src="https://projectpokemon.org/images/normal-sprite/abra.gif" alt="evolution gif" />
-                  <span >Abra</span>
-                </div>
-
-                <div className='flex flex-col items-center'>
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" className="w-10 h-10 text-gray-300 mb-4 m-auto">
-                    <path fill-rule="evenodd" d="M12.97 3.97a.75.75 0 011.06 0l7.5 7.5a.75.75 0 010 1.06l-7.5 7.5a.75.75 0 11-1.06-1.06l6.22-6.22H3a.75.75 0 010-1.5h16.19l-6.22-6.22a.75.75 0 010-1.06z" clip-rule="evenodd"></path>
-                  </svg>
-                  <span className='font-bold '>Lvl 16</span>
-                </div>
-                
-                <div className='relative flex flex-col items-center group gap-2'>
-                  <img className='absolute top-1 left-1 opacity-80 w-11/12 h-auto group-hover:rotate-45 transition' src={graypokeball} alt="pokeball" />
-                  <img className='relative max-h-24 w-auto group-hover:drop-shadow-md z-10'  src="https://projectpokemon.org/images/normal-sprite/abra.gif" alt="evolution gif" />
-                  <span >Abra</span>
-                </div>
-              </div>
-
-              <div className='flex justify-between px-1 mb-5'>
-                <div className='relative flex flex-col items-center group gap-2'>
-                  <img className='absolute top-1 left-1 opacity-80 w-11/12 h-auto group-hover:rotate-45 transition' src={graypokeball} alt="pokeball" />
-                  <img className='relative max-h-24 w-auto group-hover:drop-shadow-md z-10'  src="https://projectpokemon.org/images/normal-sprite/abra.gif" alt="evolution gif" />
-                  <span >Abra</span>
-                </div>
-
-                <div className='flex flex-col items-center'>
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" className="w-10 h-10 text-gray-300 mb-4 m-auto">
-                    <path fill-rule="evenodd" d="M12.97 3.97a.75.75 0 011.06 0l7.5 7.5a.75.75 0 010 1.06l-7.5 7.5a.75.75 0 11-1.06-1.06l6.22-6.22H3a.75.75 0 010-1.5h16.19l-6.22-6.22a.75.75 0 010-1.06z" clip-rule="evenodd"></path>
-                  </svg>
-                  <span className='font-bold '>Lvl 16</span>
-                </div>
-                
-                <div className='relative flex flex-col items-center group gap-2'>
-                  <img className='absolute top-1 left-1 opacity-80 w-11/12 h-auto group-hover:rotate-45 transition' src={graypokeball} alt="pokeball" />
-                  <img className='relative max-h-24 w-auto group-hover:drop-shadow-md z-10'  src="https://projectpokemon.org/images/normal-sprite/abra.gif" alt="evolution gif" />
-                  <span >Abra</span>
-                </div>
-              </div>
-
-            <Moves typeName='poison' />
-          </div>
+          
 
         </div>
        

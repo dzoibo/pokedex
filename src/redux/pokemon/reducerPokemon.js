@@ -8,6 +8,9 @@ const initialState = {
 }
 
 const pokemonReducer = (state = initialState, action) => {
+    if(localStorage.getItem('pokemonList')){
+        state.pokemonList = JSON.parse(localStorage.getItem('pokemonList'));
+    }
     switch (action.type) {
 
         case SELECT_POKEMON:
@@ -17,6 +20,7 @@ const pokemonReducer = (state = initialState, action) => {
             }
 
         case LOAD_POKEMON:
+            localStorage.setItem('booksData',JSON.stringify(action.payload));
             return {
                 ...state,
                 pokemonList: action.payload

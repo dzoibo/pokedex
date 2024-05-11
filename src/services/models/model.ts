@@ -1,4 +1,4 @@
-import { Ability, Pokemon, Species } from "../interfaces";
+import { Ability, Evolution, Pokemon, Species } from "../interfaces";
 import { API_URL, TYPE } from '../../utils/apis';
 import pokemon from "../../pages/pokemon";
 
@@ -87,6 +87,8 @@ class Generics {
         pokemon.species.color.text=TYPE.filter((type)=>type.name===pokemon.types[0])[0].textColor;
         pokemon.species.color.backgroung=TYPE.filter((type)=>type.name===pokemon.types[0])[0].bgColor;
         pokemon.stats=data.stats
+        pokemon.weight=data.weight;
+        pokemon.evolutions=await this.getEvolution(pokemon.species.evolution_chain.url);
         return pokemon;
     }
 
@@ -123,6 +125,37 @@ class Generics {
         }
       }
     }
+
+    async getEvolution (url: string){
+      let evolutions: Evolution[]= [];
+      const fetchData = async () => {
+          try {
+            const response = await fetch(url);
+            if (!response.ok) {
+              return {};
+            }
+            const jsonData = await response.json();
+            return jsonData
+          } catch (error) {
+            console.error('Error fetching data:', error);
+          }
+      };
+      const data= await fetchData();
+      let evolution= new Evolution();
+      evolution.initialName=data.chain.species.namee;
+      evolution.minLevel=data.chain.evolves_to[0].evolution_details[0].min_level;
+      evolution.finalName=data.chain.evolves_to[0].name;
+      evolutions.push(evolution);
+      if(data.chain.evolves_to[0].evolves_to!==undefined && data.chain.evolves_to[0].evolves_to.length>0){
+        const secondEvolution = new Evolution();
+        secondEvolution.initialName= data.chain.evolves_to[0].species.name;
+        secondEvolution.finalName=data.chain.evolves_to[0].evolves_to[0].species.name;
+        secondEvolution.minLevel=data.chain.evolves_to[0].evolves_to[0].evolution_details[0].min_level;
+        evolutions.push(evolution);
+      }
+      return evolutions;
+    } 
+
 }
 
 
