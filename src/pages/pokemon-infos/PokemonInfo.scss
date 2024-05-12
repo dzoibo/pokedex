@@ -8,6 +8,7 @@
 .about-list-badge{
     font-weight: 600;
     color: black;
+    text-transform: capitalize;
     padding: .25rem .5rem;;
     border-radius: 8px;
     background-color: #E5E7EB;
@@ -25,26 +26,32 @@
     flex-grow: 1;
     display:flex;
     align-items: center;
-    gap: 10px;
+    justify-content: space-between;
+    padding-left: 45px;
+    position: relative;
     span{
-
+        position: absolute;
+        flex-shrink: 0;
+        left: 0px;
+        display: block;
         color: black;
         font-weight: bold;
+        width: 40px;
     }
+
     div{ 
         flex-grow: 1;
         height: 4px;
+        min-height: 4px;
         border-radius: 4px;
         position: relative;
-        
+        overflow-x: hidden;
         div{
             position: absolute;
-            left: 0;
+            transform: translateX(-100%);
             top:0px;
-            height: 4px;
-            width: 20px;
+            height: 100%;
             z-index: 10;
-            transition: width 3ms ease-out 1ms;
         }
     }
 }

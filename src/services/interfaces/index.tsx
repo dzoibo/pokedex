@@ -31,7 +31,11 @@ export interface Pokemon {
     id!: string
     is_default!: boolean
    /*  location_area_encounters: string */
-    /* moves: Mfe[] */
+    movesDef: {
+      name: string,
+      url: string
+     }[];
+     moves: Moves[];
     name!: string
     order!: number
     species!: Species;
@@ -46,6 +50,8 @@ export interface Pokemon {
         this.game_indices=[];
         this.stats=[];
         this.types=[];
+        this.moves=[];
+        this.movesDef=[];
     }
   }
   
@@ -100,6 +106,18 @@ export interface Pokemon {
     backgroung: string,
     name: string ,
     url: string
+  }
+
+  export class Moves{
+    power!: number;
+    accuracy!: number;
+    name!: string;
+    description!: string;
+    type!: string;
+    pp!: number;
+    level!: number;
+    target!: string;
+    priority!: string;
   }
   
   export interface EggGroup {
@@ -207,9 +225,14 @@ export interface Pokemon {
   }
 
   export class Evolution{
-    initialName!: string;
-    finalName!: string;
-    minLevel!: string;
+    initialName: string;
+    finalName: string;
+    minLevel: any;
+     constructor(){
+      this.finalName='';
+      this.initialName='';
+      this.minLevel=null;
+     }
   }
   
   

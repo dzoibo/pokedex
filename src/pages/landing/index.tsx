@@ -66,7 +66,7 @@ const Landing = (props: any) => {
               <div className='font-bold mb-2.5 sm:mb-0'>#{pokemon.id} </div>
   
               <h1 className='flex items-center text-3xl self-start sm:text-5xl font-bold leading-[.05em]'>
-                <Link  to={`/pokemon/${pokemon}`} className='-ml-4 cursor-pointer px-4 py-2 flex items-center hover:bg-white/20 cursor rounded-md'>
+                <Link  to={`/pokemon/${pokemon.id}`} className='-ml-4 cursor-pointer px-4 py-2 flex items-center hover:bg-white/20 cursor rounded-md'>
                   {pokemon.name}
                 </Link>
                 < Cries url={pokemon.cries} />

@@ -1,4 +1,4 @@
-import { Ability, Evolution, Pokemon, Species } from "../interfaces";
+import { Ability, Evolution, Moves, Pokemon, Species } from "../interfaces";
 import { API_URL, TYPE } from '../../utils/apis';
 import pokemon from "../../pages/pokemon";
 
@@ -69,6 +69,9 @@ class Generics {
         for (const item of data.types){
             pokemon.types.push(item.type.name);
         }
+        for(const item of data.moves){
+          pokemon.movesDef.push({name:item.move.name,url:item.move.url});
+        }
         pokemon.base_experience=data.base_experience;
         pokemon.cries=data.cries.latest;
         const id=data.id.toString();
@@ -118,6 +121,8 @@ class Generics {
         return await fetchData();  
     }
 
+    
+
     getDesc(species: Species){
       for (const flavor_text_entry of species.flavor_text_entries){
         if (flavor_text_entry.language.name==='en'){
@@ -142,20 +147,55 @@ class Generics {
       };
       const data= await fetchData();
       let evolution= new Evolution();
-      evolution.initialName=data.chain.species.namee;
-      evolution.minLevel=data.chain.evolves_to[0].evolution_details[0].min_level;
-      evolution.finalName=data.chain.evolves_to[0].name;
+      evolution.initialName=data.chain.species.name;
+      if(data.chain.evolves_to[0]!==undefined){
+        evolution.minLevel=data.chain.evolves_to[0].evolution_details[0].min_level;
+      }
+      evolution.finalName=data.chain.evolves_to[0].species.name;
       evolutions.push(evolution);
       if(data.chain.evolves_to[0].evolves_to!==undefined && data.chain.evolves_to[0].evolves_to.length>0){
         const secondEvolution = new Evolution();
         secondEvolution.initialName= data.chain.evolves_to[0].species.name;
         secondEvolution.finalName=data.chain.evolves_to[0].evolves_to[0].species.name;
-        secondEvolution.minLevel=data.chain.evolves_to[0].evolves_to[0].evolution_details[0].min_level;
-        evolutions.push(evolution);
+        if(data.chain.evolves_to[0].evolves_to[0].evolution_details[0] !== undefined){
+          secondEvolution.minLevel=data.chain.evolves_to[0].evolves_to[0].evolution_details[0].min_level;
+        }
+        evolutions.push(secondEvolution);
       }
       return evolutions;
     } 
 
+    async getMoves(url: string){
+      let move= new Moves ()
+      const fetchData = async () => {
+          try {
+            const response = await fetch(url);
+            if (!response.ok) {
+              return {};
+            }
+            const jsonData = await response.json();
+            return jsonData
+          } catch (error) {
+            console.error('Error fetching data:', error);
+          }
+      };
+      const data= await fetchData();
+      move.name=data.name;
+      move.power=data.power;
+      move.pp=data.pp;
+      move.target=data.target.name;
+      move.accuracy=data.accuracy
+      move.priority=data.priority;
+      move.level= data.id;
+      move.type= data.type.name;
+      console.log(data.flav)
+      try {
+        move.description =  data.flavor_text_entries.filter((item: any)=>item.language.name==='en')[0].flavor_text;
+      } catch (error) {
+        move.description ='';
+      }
+      return move;
+    }
 }
 
 
