@@ -17,7 +17,6 @@ function Abilities(props: any) {
   const abilityListSaved= useSelector((state: any) => state.abilityList)
   const [abilityList, setAbilityList]=useState([]);
 
-
   useEffect(() =>{
     if(abilityListSaved.length<=1){
       setDisplayLoader(true);
@@ -25,7 +24,6 @@ function Abilities(props: any) {
         setAbilityList(response);
         dispatch(loadAbility(response));
         setDisplayLoader(false);
-
       })
     }else{
       setAbilityList(abilityListSaved);

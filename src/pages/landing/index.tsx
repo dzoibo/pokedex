@@ -21,7 +21,7 @@ const Landing = (props: any) => {
   
   
   useEffect(() => {
-    const randomId = Math.floor(Math.random() * 151) + 1;
+    const randomId = Math.floor(Math.random() * 10) + 1;
     setDisplayLoader(true);
     if(pokemonList.length<=1){
       genericFunctions.getPokemon(randomId).then((response: any)=>{
@@ -46,10 +46,10 @@ const Landing = (props: any) => {
               <p className='ml-6 sm:ml-12'>Pokémons</p> 
               <img className='absolute -right-8 -bottom-6 h-36 w-36' alt='pokeball icon' src={pokeball}/>
             </Link>
-            <div data-aos="fade-up" data-aos-delay="200" className={menuCardStyle+'bg-[rgba(220,101,97,0.5)] hover:before:!bg-white/20'}> {/* bg-[#dc6661]  */}
+            <Link to='move' data-aos="fade-up" data-aos-delay="200" className={menuCardStyle+' bg-[#dc6661] hover:before:!bg-white/20'}>
               <p className='ml-6 sm:ml-12'>Moves</p> 
               <img className='absolute -right-8 -bottom-6 h-6 w-36' alt='pokeball icon' src={pokeball}/>
-            </div>
+            </Link>
             <Link to='abilities' data-aos="fade-up" data-aos-delay="300" className={menuCardStyle+'bg-[#75aef0]  '}> 
               <p className='ml-6 sm:ml-12'>Abilities</p> 
               <img className='absolute -right-8 -bottom-6 h-36 w-36' alt='pokeball icon' src={pokeball}/>

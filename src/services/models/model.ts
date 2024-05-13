@@ -60,6 +60,8 @@ class Generics {
       return this.mapAbilityData(ability);
     }
 
+    
+
     async mapPokemonData(data: any){
         let pokemon=new Pokemon() ;
         pokemon.name=data.name;
@@ -165,7 +167,16 @@ class Generics {
       return evolutions;
     } 
 
-    async getMoves(url: string){
+    async getMoves(start: number, end: number){
+      let moves=[];
+      for (let i = start; i <= end ; i++){
+        const move = await this.getMove('https://pokeapi.co/api/v2/move/'+i);
+        moves.push(move);
+      }
+      return moves;
+    }
+
+    async getMove(url: string){
       let move= new Moves ()
       const fetchData = async () => {
           try {

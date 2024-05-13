@@ -1,4 +1,3 @@
-import React from 'react';
 import { TYPE } from '../../utils/apis';
 
 

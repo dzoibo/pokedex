@@ -84,7 +84,7 @@ function PokemonInfo (props: any) {
     setDisplaySpinner(true);
       for (let i =0 ; i<15 && i<pokemon.movesDef.length ; i++){// 15 moves is enougth , we don't need a lot..
         const moveDef= pokemon.movesDef[i];
-        const move= await genericFunctions.getMoves(moveDef.url);
+        const move= await genericFunctions.getMove(moveDef.url);
         pokemon.moves.push(move);
       }
       let index = pokemonListSaved.findIndex((item: any) => item.id===pokemon.id);
