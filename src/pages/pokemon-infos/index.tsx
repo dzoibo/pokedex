@@ -1,4 +1,4 @@
-
+import { useNavigate } from 'react-router-dom';
 import { useDispatch,useSelector } from 'react-redux';
 import Generics from '../../services/models/model';
 import React, { useState,useEffect } from 'react';
@@ -18,15 +18,20 @@ import Moves from '../../components/moves';
 
 import ScrollTrigger from 'gsap/ScrollTrigger';
 import gsap from "gsap";
+
 gsap.registerPlugin(ScrollTrigger);
 
 
 
 function PokemonInfo (props: any) {
+  const navigate = useNavigate();
   const genericFunctions = new Generics();
   const dispatch = useDispatch();
   const pokemonListSaved=useSelector((state:any) => state.pokemonList);
-  const pokemonId= parseInt(useParams().pokemonId as string);
+
+  const id= parseInt(useParams().pokemonId as string);
+  const [pokemonId,setPokemonId]= useState(id);
+
   const [displayedSession,setDisplayedSession]= useState('about');
   const [displayLoader, setDisplayLoader]= useState(true);
   const [pokemon,setPokemon]= useState( new Pokemon());
@@ -54,9 +59,8 @@ function PokemonInfo (props: any) {
       setPokemonList(pokemonListSaved);
       setPokemon(pokemonListSaved[pokemonId-1]);
       setDisplayLoader(false);
-
     }
-  }, []);
+  }, [pokemonId]);
 
   const changeSession= async (sessionName: string)=>{
     setDisplayedSession(sessionName);
@@ -122,12 +126,22 @@ function PokemonInfo (props: any) {
 
     })
   }
+
+  const swipePokemon=(direction: string)=>{
+    navigate('../../pokemons/'+pokemonId);
+    setDisplayedSession('about');
+    if(direction==='next'){
+      setPokemonId(pokemonId+1);
+    }else{
+      setPokemonId(pokemonId-1);
+    }
+  }
   
   if(!displayLoader){
     return (
-      <div className={props.padding+' w-full overflow-hidden before:w-60 before:z-0 before:h-60 before:bg-gradient-to-r before:from-white/50 before:to-white/5 before:absolute before:-top-14 before:-left-28 before:rounded-3xl before:rotate-[60deg] transition-colors duration-1000 overflow-x-hidden '+pokemon.species.color.backgroung}>
+      <div className={props.padding+' w-full overflow-hidden min-h-screen before:w-60 before:z-0 before:h-60 before:bg-gradient-to-r before:from-white/50 before:to-white/5 before:absolute before:-top-14 before:-left-28 before:rounded-3xl before:rotate-[60deg] transition-colors duration-1000 overflow-x-hidden '} style={{backgroundColor:pokemon.species.color.code}}>
         <div className='px-0 md:px-10 lg:px-20'>
-          <Header infos='pokemon' />
+          <Header infos='pokemons' />
           <div className='text-white block items-center sm:flex-row-reverse justify-between sm:flex'>
             <div className='font-bold mb-2.5 sm:mb-0 text-2xl opacity-80'>#{pokemon.id} </div>
 
@@ -153,7 +167,7 @@ function PokemonInfo (props: any) {
         
         <div className='relative w-fit max-w-full m-auto'>
           {pokemonId >1 && //this means that there is still pokemon before the current pokemon so we can allow displaying back
-            <div className='absolute -left-20 top-5 sm:left-0 z-0' >
+            <div onClick={()=>swipePokemon('prev')} className='absolute -left-20 top-5 sm:left-0 z-0' >
               <img src={(pokemonList[pokemonId-2] as any).image} className={previousSelectedImage}  alt="previous pokemon" />
             </div>
           }
@@ -163,7 +177,7 @@ function PokemonInfo (props: any) {
             <img className={pokemonImageStyle} src={pokemon.image} alt="pokemon" />
           </div>
           {pokemonId< pokemonList.length  && 
-            <div className='absolute -right-20 sm:right-0 top-5 z-0' >
+            <div onClick={()=>swipePokemon('next')} className='absolute -right-20 sm:right-0 top-5 z-0' >
               <img className={previousSelectedImage} src={(pokemonList[pokemonId] as any).image} alt="next pokemon" />
             </div>
           }
@@ -268,7 +282,7 @@ function PokemonInfo (props: any) {
                       </div>
                       <div >
                         <img src={female} alt="female-gender" className='h-6'/>
-                        <span className='font-normal'>{pokemon.species.gender_rate}* %</span>
+                        <span className='font-normal'>{pokemon.species.gender_rate} %</span>
                       </div>
                     </div>
                   </div>

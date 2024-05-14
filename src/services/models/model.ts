@@ -88,6 +88,7 @@ class Generics {
         pokemon.species = await this.getSpices(data.species.url);
         pokemon.species.color.text=TYPE.filter((type)=>type.name===pokemon.types[0])[0].textColor;
         pokemon.species.color.backgroung=TYPE.filter((type)=>type.name===pokemon.types[0])[0].bgColor;
+        pokemon.species.color.code=TYPE.filter((type)=>type.name===pokemon.types[0])[0].code;
         pokemon.stats=data.stats
         pokemon.weight=data.weight;
         pokemon.evolutions=await this.getEvolution(pokemon.species.evolution_chain.url);
