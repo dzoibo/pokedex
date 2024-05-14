@@ -8,6 +8,7 @@ import Generics from '../../services/models/model';
 import Loader from '../../components/loader/loader';
 import { loadPokemon } from '../../redux/pokemon/actionPokemon';
 import InfiniteScroll from "react-infinite-scroll-component"
+import spinner from '../../assets/images/loader.gif';
 
 function Pokemon(props: any) {
   const genericFunctions = new Generics();
@@ -74,7 +75,7 @@ function Pokemon(props: any) {
             dataLength={pokemonList.length}
             next={fetchMorePokemon} 
             hasMore={pokemonListSaved.length<200} 
-            loader={loadingMore && <h4>Loading...</h4>}>
+            loader={loadingMore && <div className='w-full flex justify-center py-5 font-bold'><img className='w-10 h-10' src={spinner} alt="loader" /> </div>}>
               <div className='flex w-full justify-center gap-x-6 flex-wrap'>
                 {pokemonList.map((item:any) => (
                   <PokemonCard key={item.id}  pokemon={item} />
