@@ -4,11 +4,10 @@ import pokeball from '../../assets/images/pokeball.svg';
 
 
 function PokemonCard(props: any) {
-    
-
-  const pokemon: Pokemon= props.pokemon
+  const pokemon: Pokemon= props.pokemon;
+  
   return (
-    <Link  to={`/pokemon/${pokemon.id}`}  className={'text-white group flex justify-between relative p-8 overflow-hidden rounded-3xl h-52 w-80 px-6  mt-6 '+pokemon.species.color.backgroung} >
+    <Link  to={`/pokemons/${pokemon.id}`}  className={'text-white group flex justify-between relative p-8 overflow-hidden rounded-3xl h-52 w-80 px-6  mt-6 '+pokemon.species.color.backgroung} >
         <div className='font-bold absolute right-5 top-4  text-[#1f29374d] transition-all duration-300 ease group-hover:text-white'>
             #{pokemon.id} 
         </div>

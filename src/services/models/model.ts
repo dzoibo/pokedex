@@ -185,7 +185,12 @@ class Generics {
       if(data.chain.evolves_to[0]!==undefined){
         evolution.minLevel=data.chain.evolves_to[0].evolution_details[0].min_level;
       }
-      evolution.finalName=data.chain.evolves_to[0].species.name;
+      try {
+        evolution.finalName=data.chain.evolves_to[0].species.name;
+      } catch (error) {
+        return [];
+      }
+
       evolutions.push(evolution);
       if(data.chain.evolves_to[0].evolves_to!==undefined && data.chain.evolves_to[0].evolves_to.length>0){
         const secondEvolution = new Evolution();
@@ -231,7 +236,6 @@ class Generics {
       move.priority=data.priority;
       move.level= data.id;
       move.type= data.type.name;
-      console.log(data.flav)
       try {
         move.description =  data.flavor_text_entries.filter((item: any)=>item.language.name==='en')[0].flavor_text;
       } catch (error) {

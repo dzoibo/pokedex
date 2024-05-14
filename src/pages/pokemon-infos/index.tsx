@@ -32,12 +32,14 @@ function PokemonInfo (props: any) {
   const [pokemon,setPokemon]= useState( new Pokemon());
   const [pokemonList, setPokemonList]=useState([]);
   const [displaySpinner,setDisplaySpinner]=useState(false);
+  
   //reusable style
   const pokemonImageStyle= 'relative w-auto h-60 sm:h-80 select-none';
   const previousSelectedImage='transition-all h-36 sm:h-44 md:h-52 -left-40 sm:-left-48 md:-left-60 top-12 brightness-0 contrast-50 opacity-70 hover:opacity-100 previous-pokemon-picture select-none';
   const aboutItemStyle= 'flex items-center mt-2';
-  const statItemStyle='flex items-center py-3'
-  const menuItemStyle=' flex items-center sm:pb-2 sm:pr-8 text-sm transition-colors duration-200 cursor-pointer md:text-lg hover:text-black'
+  const statItemStyle='flex items-center py-3';
+  const menuItemStyle=' flex items-center sm:pb-2 sm:pr-8 text-sm transition-colors duration-200 cursor-pointer md:text-lg hover:text-black';
+
   useEffect(() => {
     if(pokemonListSaved.length<=1){
       setDisplayLoader(true);
@@ -52,6 +54,7 @@ function PokemonInfo (props: any) {
       setPokemonList(pokemonListSaved);
       setPokemon(pokemonListSaved[pokemonId-1]);
       setDisplayLoader(false);
+
     }
   }, []);
 
@@ -129,7 +132,7 @@ function PokemonInfo (props: any) {
             <div className='font-bold mb-2.5 sm:mb-0 text-2xl opacity-80'>#{pokemon.id} </div>
 
             <h1 className='mt-8 flex items-center text-3xl self-start sm:text-5xl font-bold leading-[.05em]'>
-              <span className='text-5xl font-bold tracking-wider selection:bg-transparent bg-transparent'>
+              <span className='overflow-visible text-5xl font-bold tracking-wider selection:bg-transparent bg-transparent'>
                 {pokemon.name}
               </span>
               < Cries url={pokemon.cries} />
@@ -323,6 +326,7 @@ function PokemonInfo (props: any) {
                       </div>
                     </div>
                   ))}
+                  {pokemon.evolutions.length===0 && <p>This pokemon has no evolution</p> }
                 </>
               )}
 

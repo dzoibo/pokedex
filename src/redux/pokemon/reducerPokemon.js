@@ -37,7 +37,9 @@ const pokemonReducer = (state = initialState, action) => {
             }
 
         case LOAD_POKEMON:
-            localStorage.setItem('pokemonList',JSON.stringify(action.payload));
+            if(!localStorage.getItem('pokemonList')){
+                localStorage.setItem('pokemonList',JSON.stringify(action.payload));
+            }
             return {
                 ...state,
                 pokemonList: action.payload
