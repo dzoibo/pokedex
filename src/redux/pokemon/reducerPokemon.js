@@ -17,7 +17,7 @@ const pokemonReducer = (state = initialState, action) => {
     }
 
     if(localStorage.getItem('abilityList')){
-        state.pokemonList = JSON.parse(localStorage.getItem('abilityList'));
+        state.abilityList = JSON.parse(localStorage.getItem('abilityList'));
     }
 
     if(localStorage.getItem('moveList')){
@@ -25,7 +25,7 @@ const pokemonReducer = (state = initialState, action) => {
     }
 
     if(localStorage.getItem('itemList')){
-        state.moveList = JSON.parse(localStorage.getItem('itemList'));
+        state.itemList = JSON.parse(localStorage.getItem('itemList'));
     }
 
     switch (action.type) {

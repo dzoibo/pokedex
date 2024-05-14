@@ -17,11 +17,10 @@ const Landing = (props: any) => {
   const genericFunctions = new Generics();
   const dispatch = useDispatch()
   const pokemonList=useSelector((state:any) => state.pokemonList);
-
   
   
   useEffect(() => {
-    const randomId = Math.floor(Math.random() * 10) + 1;
+    const randomId = Math.floor(Math.random() * 50) + 1;
     setDisplayLoader(true);
     if(pokemonList.length<=1){
       genericFunctions.getPokemon(randomId).then((response: any)=>{
@@ -42,11 +41,11 @@ const Landing = (props: any) => {
         <div>
           <h1 data-aos="fade-up" className=' main-title text-xl sm:text-[2.5rem] mt-4 sm:mt-12 w-full text-left mb-2'> Welcome to the pokedev</h1>
           <div  className='grid sm:grid-cols-2 gap-6 sm:gap-8'>
-            <Link data-aos="fade-up" data-aos-delay="100"  className={menuCardStyle + 'bg-[#58af94]'} to='pokemon'>
+            <Link data-aos="fade-up" data-aos-delay="100"  className={menuCardStyle + 'bg-[#58af94]'} to='pokemons'>
               <p className='ml-6 sm:ml-12'>Pokémons</p> 
               <img className='absolute -right-8 -bottom-6 h-36 w-36' alt='pokeball icon' src={pokeball}/>
             </Link>
-            <Link to='move' data-aos="fade-up" data-aos-delay="200" className={menuCardStyle+' bg-[#dc6661] hover:before:!bg-white/20'}>
+            <Link to='moves' data-aos="fade-up" data-aos-delay="200" className={menuCardStyle+' bg-[#dc6661] hover:before:!bg-white/20'}>
               <p className='ml-6 sm:ml-12'>Moves</p> 
               <img className='absolute -right-8 -bottom-6 h-6 w-36' alt='pokeball icon' src={pokeball}/>
             </Link>
@@ -54,10 +53,10 @@ const Landing = (props: any) => {
               <p className='ml-6 sm:ml-12'>Abilities</p> 
               <img className='absolute -right-8 -bottom-6 h-36 w-36' alt='pokeball icon' src={pokeball}/>
             </Link>
-            <div data-aos="fade-up" data-aos-delay="400" className={menuCardStyle+'bg-[rgba(247,206,92,0.50)] hover:before:!bg-white/20'}>
+            <Link data-aos="fade-up" data-aos-delay="400" className={menuCardStyle+'bg-[#F7CD5C] hover:before:!bg-white/20'} to={'items'}>
               <p className='ml-6 sm:ml-12 '>items</p> 
               <img className='absolute -right-8 -bottom-6 h-36 w-36' alt='pokeball icon' src={pokeball}/>
-            </div>
+            </Link>
           </div>
           
           <div data-aos="fade-up" data-aos-delay="550" className={menuCardStyle+' '+ pokemon.species.color.backgroung+ ' !px-6 sm:!px-16 mt-10 '} /* style={{background:pokemon.species.color.name}} */>
@@ -66,7 +65,7 @@ const Landing = (props: any) => {
               <div className='font-bold mb-2.5 sm:mb-0'>#{pokemon.id} </div>
   
               <h1 className='flex items-center text-3xl self-start sm:text-5xl font-bold leading-[.05em]'>
-                <Link  to={`/pokemon/${pokemon.id}`} className='-ml-4 cursor-pointer px-4 py-2 flex items-center hover:bg-white/20 cursor rounded-md'>
+                <Link  to={`/pokemons/${pokemon.id}`} className='-ml-4 cursor-pointer px-4 py-2 flex items-center hover:bg-white/20 cursor rounded-md'>
                   {pokemon.name}
                 </Link>
                 < Cries url={pokemon.cries} />

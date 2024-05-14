@@ -235,4 +235,11 @@ export interface Pokemon {
      }
   }
   
+  export class Item{
+    name!: string;
+    category!: string;
+    cost!: number;
+    description!: string;
+    image!: string;
+  }
   

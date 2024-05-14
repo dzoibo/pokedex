@@ -13,6 +13,7 @@ import "aos/dist/aos.css";
 import { Provider } from 'react-redux';
 import store from './redux/store';
 import Moves from './pages/moves';
+import Items from './pages/items';
 
 const App=()=> {
     useEffect(() => {
@@ -31,10 +32,11 @@ const App=()=> {
           <div >
             <Routes>
               <Route path="/" element={<Home padding={paddingStyle}/>}/>
-              <Route path="/pokemon" element={<Pokemon padding={paddingStyle}/>}/>
-              <Route path="/pokemon/:pokemonId" element={<PokemonInfo padding={paddingStyle}/>} />
+              <Route path="/pokemons" element={<Pokemon padding={paddingStyle}/>}/>
+              <Route path="/pokemons/:pokemonId" element={<PokemonInfo padding={paddingStyle}/>} />
               <Route path="/abilities" element={<Abilities padding={paddingStyle}/>}/>
-              <Route path="/move"  element={<Moves padding={paddingStyle}/>}/>
+              <Route path="/moves"  element={<Moves padding={paddingStyle}/>}/>
+              <Route path="/items"  element={<Items padding={paddingStyle}/>}/>
               <Route path="/*" element={<Notfound/>}/>
             </Routes>
           </div>

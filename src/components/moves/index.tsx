@@ -22,29 +22,23 @@ function Moves (props: any) {
         
                     <div className='flex z-10 flex-wrap gap-3 pr-24'>
                         <div className='about-list-badge'>
-                            Power 
-                            <span >{move.power} </span>
+                            Power <span >{move.power} </span>
                         </div>
                         <div  className='about-list-badge'>
-                            Accuracy 
-                            <span >{move.accuracy} </span> 
+                            Accuracy <span >{move.accuracy} </span> 
                         </div>
                         <div className='about-list-badge'>
-                            PP
-                            <span>{move.pp} </span>
+                            PP <span>{move.pp} </span>
                         </div>
                         <div className='about-list-badge'>
-                            Priority 
-                            <span>{move.priority} </span>
+                            Priority <span>{move.priority} </span>
                         </div>
                         
                         <div className='about-list-badge'>
-                            Type 
-                            <span>{move.type}</span>
+                            Type <span>{move.type}</span>
                         </div>
                         <div className='about-list-badge'>
-                            Target 
-                            <span>{move.target}</span>
+                            Target <span>{move.target}</span>
                         </div>
                     </div>
         

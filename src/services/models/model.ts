@@ -1,6 +1,5 @@
-import { Ability, Evolution, Moves, Pokemon, Species } from "../interfaces";
+import { Ability, Evolution, Item, Moves, Pokemon, Species } from "../interfaces";
 import { API_URL, TYPE } from '../../utils/apis';
-import pokemon from "../../pages/pokemon";
 
 
 class Generics {
@@ -59,8 +58,6 @@ class Generics {
       ability= await fetchData();
       return this.mapAbilityData(ability);
     }
-
-    
 
     async mapPokemonData(data: any){
         let pokemon=new Pokemon() ;
@@ -123,8 +120,43 @@ class Generics {
         return await fetchData();  
     }
 
-    
+    async getItems(start: number, end: number){
+      let items=[];
+      for (let i = start; i <= end ; i++){
+        const item = await this.getItem(API_URL.baseDevUrl+'item/'+i);
+        items.push(item);
+      }
+      return items;
+    }
 
+    async getItem(url: string){
+      let item= new Item();
+      const fetchData = async () => {
+          try {
+            const response = await fetch(url);
+            if (!response.ok) {
+              return {};
+            }
+            const jsonData = await response.json();
+            return jsonData
+          } catch (error) {
+            console.error('Error fetching data:', error);
+          }
+      };
+      const data= await fetchData();
+      item.name=data.name;
+      item.cost=data.cost;
+      item.image=data.sprites.default;
+      item.category=data.category.name;
+
+      try {
+        item.description =  data.flavor_text_entries.filter((desc: any)=>desc.language.name==='en')[0].text;
+      } catch (error) {
+        item.description ='';
+      }
+      return item;
+    }
+    
     getDesc(species: Species){
       for (const flavor_text_entry of species.flavor_text_entries){
         if (flavor_text_entry.language.name==='en'){

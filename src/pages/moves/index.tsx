@@ -1,12 +1,12 @@
 
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Header from '../../components/header';
 import SearchBar from '../../components/searchBar';
 import TypeMenu from '../../components/typeMenu';
 import Moves from '../../components/moves';
 import Generics from '../../services/models/model';
 import { useDispatch, useSelector } from 'react-redux';
-import {  loadMoves } from '../../redux/pokemon/actionPokemon';
+import { loadMoves } from '../../redux/pokemon/actionPokemon';
 import Loader from '../../components/loader/loader';
 import ScrollTrigger from 'gsap/ScrollTrigger';
 import gsap from "gsap";
@@ -25,7 +25,7 @@ function MovesList(props: any) {
     useEffect(() =>{
         if(moveListSaved.length<=1){
           setDisplayLoader(true);
-          genericFunctions.getMoves(1,30).then((response: any)=>{
+          genericFunctions.getMoves(1,43).then((response: any)=>{
             setMoveList(response);
             dispatch(loadMoves(response));
             setDisplayLoader(false);
@@ -78,6 +78,7 @@ function MovesList(props: any) {
         move.name.includes(keyWord) && 
         (move.type===selectedType || selectedType==='All'));
         setMoveList(searchResult);
+        setSearchKey(keyWord);
     }
     
     if(!displayLoader){
