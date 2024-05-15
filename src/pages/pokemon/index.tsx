@@ -24,7 +24,7 @@ function Pokemon(props: any) {
   useEffect(() => {
     if(pokemonListSaved.length<=1){
       setDisplayLoader(true);
-      genericFunctions.getPokemons(1,40).then((response: any)=>{
+      genericFunctions.getPokemons(1,20).then((response: any)=>{
         setPokemonList(response);
         dispatch(loadPokemon(response));
         setDisplayLoader(false);
