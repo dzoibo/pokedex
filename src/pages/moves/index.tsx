@@ -24,7 +24,7 @@ function MovesList(props: any) {
     const [moveList, setMoveList]=useState([]);
     const [selectedType,setType]= useState('All');
     const [searchKey,setSearchKey]= useState('');
-    const [loadingMore, setLoadingMore]=useState(true);
+    const [loadingMore, setLoadingMore]=useState(false);
 
     useEffect(() =>{
         if(moveListSaved.length<=1){
@@ -110,7 +110,7 @@ function MovesList(props: any) {
                 hasMore={moveListSaved.length<100} 
                 loader={loadingMore && <div className='w-full flex justify-center font-bold my-5 '><img className='w-10 h-10' src={spinner} alt="loader" /> </div>}>
                   
-                  <div className='grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 overflow-y-hidden'>
+                  <div className='mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 overflow-y-hidden'>
                     {moveList.map((item:any) => (
                         <Moves key={item.name} move={item}  />
                     ))} 

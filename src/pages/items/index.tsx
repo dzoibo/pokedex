@@ -22,7 +22,7 @@ const Items = (props: any) => {
     useEffect(() =>{
         if(itemsListSaved.length<=1){
           setDisplayLoader(true);
-          genericFunctions.getItems(1,30).then((response: any)=>{
+          genericFunctions.getItems(1,28).then((response: any)=>{
             setItemList(response);
             dispatch(loadItems(response));
             setDisplayLoader(false);
@@ -52,7 +52,7 @@ const Items = (props: any) => {
               start: "top 90%",
               toggleActions:'play none none reverse',
             },
-            duration: 0.3,
+            duration: 0.2,
             rotate:'0',
             skewY:0,
             skewX:0,
@@ -60,6 +60,7 @@ const Items = (props: any) => {
             opacity:1,
             x:0,
             y:0,
+            ease: 'power4.out'
           });
         })
       }

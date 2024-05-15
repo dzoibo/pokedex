@@ -20,7 +20,7 @@ const Landing = (props: any) => {
   
   
   useEffect(() => {
-    const randomId = Math.floor(Math.random() * 50) + 1;
+    const randomId = Math.floor(Math.random() * 40) + 1;
     setDisplayLoader(true);
     if(pokemonList.length<=1){
       genericFunctions.getPokemon(randomId).then((response: any)=>{

@@ -20,7 +20,7 @@ function Abilities(props: any) {
   useEffect(() =>{
     if(abilityListSaved.length<=1){
       setDisplayLoader(true);
-      genericFunctions.getAbilities(1,30).then((response: any)=>{
+      genericFunctions.getAbilities(1,28).then((response: any)=>{
         setAbilityList(response);
         dispatch(loadAbility(response));
         setDisplayLoader(false);
