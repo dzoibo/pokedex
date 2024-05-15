@@ -12,7 +12,7 @@ function Moves (props: any) {
     return (
         <div className='container h-full'>
             {type !== undefined && (
-                <li className={type.borderColor+ animationBaseStyle+' list-none border-2 rounded-lg p-8 relative shadow-sm shadow-normal/80 mt-8 move-card'}>
+                <li className={type.borderColor+ animationBaseStyle+' list-none border-2 rounded-lg p-8 relative shadow-sm shadow-normal/80 mb-8 h-full move-card'}>
                     <div className='*:font-semibold *:text-lg flex items-center flex-wrap gap-2'>
                         <p className={type.bgColor +' py-2 px-4 w-fit rounded-lg font-semibold text-lg text-white'}>{move.name} </p>
                         {/* <p className={type.textColor} >lVL. {move.level} </p> */}

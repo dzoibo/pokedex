@@ -7,9 +7,12 @@ import Moves from '../../components/moves';
 import Generics from '../../services/models/model';
 import { useDispatch, useSelector } from 'react-redux';
 import { loadMoves } from '../../redux/pokemon/actionPokemon';
+import InfiniteScroll from "react-infinite-scroll-component"
+import spinner from '../../assets/images/loader.gif';
 import Loader from '../../components/loader/loader';
 import ScrollTrigger from 'gsap/ScrollTrigger';
 import gsap from "gsap";
+
 gsap.registerPlugin(ScrollTrigger);
 
 
@@ -21,11 +24,12 @@ function MovesList(props: any) {
     const [moveList, setMoveList]=useState([]);
     const [selectedType,setType]= useState('All');
     const [searchKey,setSearchKey]= useState('');
+    const [loadingMore, setLoadingMore]=useState(true);
 
     useEffect(() =>{
         if(moveListSaved.length<=1){
           setDisplayLoader(true);
-          genericFunctions.getMoves(1,43).then((response: any)=>{
+          genericFunctions.getMoves(1,20).then((response: any)=>{
             setMoveList(response);
             dispatch(loadMoves(response));
             setDisplayLoader(false);
@@ -36,9 +40,21 @@ function MovesList(props: any) {
         }
     },[]);
 
+    const fetchMoreMoves = async() =>{
+      setLoadingMore(true);
+      const response = await genericFunctions.getMoves(moveList.length+1,moveList.length+8);
+      const updatedList: any= [...moveList,...response];
+      setMoveList(updatedList);
+      dispatch(loadMoves(updatedList));
+      setLoadingMore(false);
+    }
+    
+    
+
     useEffect(()=>{
       setupMoveAnimation();
     },[moveList]);
+    
 
     const setupMoveAnimation = () => {
       gsap.utils.toArray('.container').forEach(function(container: any,index){
@@ -83,18 +99,28 @@ function MovesList(props: any) {
     
     if(!displayLoader){
         return (
-            <div className={props.padding}>
+            <div className={props.padding+ ' h-fit'}>
                 <Header link='home' />
                 <h1 className=' main-title text-base sm:text-[2.5rem] mt-4 sm:mt-12 w-full text-left mb-2'> Moves</h1>
                 <SearchBar search={searchMoves} placeholder={'Search a move !!!'} />
                 <TypeMenu filter={filterPokemon} />
-                <div className='grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4'>
-                {moveList.map((item:any) => (
-                    <Moves key={item.name} move={item}  />
-                ))} 
-                </div> 
+                <InfiniteScroll
+                dataLength={moveList.length}
+                next={fetchMoreMoves} 
+                hasMore={moveListSaved.length<100} 
+                loader={loadingMore && <div className='w-full flex justify-center font-bold my-5 '><img className='w-10 h-10' src={spinner} alt="loader" /> </div>}>
+                  
+                  <div className='grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 overflow-y-hidden'>
+                    {moveList.map((item:any) => (
+                        <Moves key={item.name} move={item}  />
+                    ))} 
+                  </div>
+
+                </InfiniteScroll>
+                  
+               {/* 
                 <a className="mt-10 block font-semibold text-white rounded px-4 py-2 md:w-fit bg-black" href="https://twitter.com/ivan_dzoibo" target="_blank" rel="noreferrer">© By Dzoibo ivan</a>
-            </div>
+             */}</div>
         )
       }else{
         return (

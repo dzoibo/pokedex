@@ -51,7 +51,9 @@ const pokemonReducer = (state = initialState, action) => {
                 abilityList: action.payload
             }
         case LOAD_MOVES:
-            localStorage.setItem('moveList',JSON.stringify(action.payload));
+            if(!localStorage.getItem('moveList')){
+                localStorage.setItem('moveList',JSON.stringify(action.payload));
+            }
             return{
                 ...state,
                 moveList: action.payload
