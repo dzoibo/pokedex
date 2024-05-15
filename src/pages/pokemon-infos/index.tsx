@@ -181,7 +181,7 @@ function PokemonInfo (props: any) {
   if(!displayLoader){
     return (
       <div className={props.padding+' w-full overflow-hidden min-h-screen before:w-60 before:z-0 before:h-60 before:bg-gradient-to-r before:from-white/50 before:to-white/5 before:absolute before:-top-14 before:-left-28 before:rounded-3xl before:rotate-[60deg] transition-colors duration-1000 overflow-x-hidden '} style={{backgroundColor:pokemon.species.color.code}}>
-        <div className='px-0 md:px-10 lg:px-20'>
+        <div className='px-0 pt-9 md:px-10 lg:px-20'>
           <Header infos='pokemons' />
           <div className='text-white block items-center sm:flex-row-reverse justify-between sm:flex'>
             <div className='font-bold mb-2.5 sm:mb-0 text-2xl opacity-80'>#{pokemon.id} </div>

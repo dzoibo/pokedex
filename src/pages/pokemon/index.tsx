@@ -18,7 +18,7 @@ function Pokemon(props: any) {
   const [selectedType,setType]= useState('All');
   const [searchKey,setSearchKey]= useState('');
   const [pokemonList, setPokemonList]=useState([]);
-  const [loadingMore, setLoadingMore]=useState(true);
+  const [loadingMore, setLoadingMore]=useState(false);
 
   
   useEffect(() => {
