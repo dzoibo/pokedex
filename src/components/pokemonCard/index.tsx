@@ -1,13 +1,26 @@
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { Pokemon } from '../../services/interfaces';
 import pokeball from '../../assets/images/pokeball.svg';
 
 
 function PokemonCard(props: any) {
   const pokemon: Pokemon= props.pokemon;
-  
+  const navigate = useNavigate();
+
+  const viewNavigate = (newRoute: string) => {
+    if (!document.startViewTransition) {
+      return navigate(newRoute);
+    } else {
+      return document.startViewTransition(() => {
+        navigate(newRoute);
+      });
+    }
+  };
+
   return (
-    <Link  to={`/pokemons/${pokemon.id}`}  className={'text-white group flex justify-between relative p-8 overflow-hidden rounded-3xl h-52 w-80 px-6  mt-6 '+pokemon.species.color.backgroung} >
+    <div onClick={() => {
+        viewNavigate(`/pokemons/${pokemon.id}`);
+      }}  className={'text-white group flex justify-between relative p-8 overflow-hidden rounded-3xl h-52 w-80 px-6  mt-6 '+pokemon.species.color.backgroung} >
         <div className='font-bold absolute right-5 top-4  text-[#1f29374d] transition-all duration-300 ease group-hover:text-white'>
             #{pokemon.id} 
         </div>
@@ -23,7 +36,7 @@ function PokemonCard(props: any) {
         </div>
         <img  className='group-hover:scale-110 transition-all duration-300 ease  -mr-6 relative h-40 w-40 z-20' alt='pokemon presentation' src={pokemon.image} />
         <img src={pokeball} alt='pokeball icon' className='absolute transition-all duration-300 ease w-44 h-44 -right-3 -bottom-8 group-hover:rotate-45'/>
-    </Link>
+    </div>
     
   )
 }

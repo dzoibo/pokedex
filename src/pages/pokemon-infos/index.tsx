@@ -87,6 +87,8 @@ function PokemonInfo (props: any) {
     }
   }
 
+  
+
   const loadMoves= async ()=>{
     setDisplaySpinner(true);
       for (let i =0 ; i<15 && i<pokemon.movesDef.length ; i++){// 15 moves is enougth , we don't need a lot..
@@ -127,7 +129,46 @@ function PokemonInfo (props: any) {
     })
   }
 
+  const swipeAnimation=(direction: string)=>{
+    const previousPokemon=document.querySelector('.pokemon-previous');
+    const nextPokemon=document.querySelector('.pokemon-next');
+    const currentPokemon=document.querySelector('.pokemon-current');
+    
+    if(direction==='prev'){
+      gsap.to(previousPokemon,{
+        /* absolute -left-20 top-5 sm:left-0 z-0 */
+        left: '50%',
+        x:'-50%',
+        duration:0.5,
+        top:'40px',
+        scale: '1.4',
+        ease: 'Power4.easeOut',
+        zIndex: '20'
+      })
+      gsap.to(document.querySelector('.previous-pokemon-picture'),{
+        top:'0px',
+        duration:0.5
+      });
+
+      gsap.to(nextPokemon,{
+        /* absolute -left-20 top-5 sm:left-0 z-0 */
+        opacity:0,
+        scale: '0.5',
+        duration:0.3,
+        x: '-50%',
+        ease: 'Power4.easeIn'
+      })
+
+      gsap.to(currentPokemon,{
+        position: 'absolute',
+        right:'-150px'
+      })
+    }
+
+  }
+
   const swipePokemon=(direction: string)=>{
+    /* swipeAnimation('prev'); */
     navigate('../../pokemons/'+pokemonId);
     setDisplayedSession('about');
     if(direction==='next'){
@@ -145,7 +186,7 @@ function PokemonInfo (props: any) {
           <div className='text-white block items-center sm:flex-row-reverse justify-between sm:flex'>
             <div className='font-bold mb-2.5 sm:mb-0 text-2xl opacity-80'>#{pokemon.id} </div>
 
-            <h1 className='mt-8 flex items-center text-3xl self-start sm:text-5xl font-bold leading-[.05em]'>
+            <h1 className=' mt-8 flex items-center text-3xl self-start sm:text-5xl font-bold leading-[.05em]'>
               <span className='overflow-visible text-5xl font-bold tracking-wider selection:bg-transparent bg-transparent'>
                 {pokemon.name}
               </span>
@@ -167,17 +208,16 @@ function PokemonInfo (props: any) {
         
         <div className='relative w-fit max-w-full m-auto'>
           {pokemonId >1 && //this means that there is still pokemon before the current pokemon so we can allow displaying back
-            <div onClick={()=>swipePokemon('prev')} className='absolute -left-20 top-5 sm:left-0 z-0' >
+            <div onClick={()=>swipePokemon('prev')} className='pokemon-previous absolute -left-20 top-5 sm:left-0 z-0' >
               <img src={(pokemonList[pokemonId-2] as any).image} className={previousSelectedImage}  alt="previous pokemon" />
             </div>
           }
-            
           <div className='relative mx-auto w-fit -mb-14 z-10'>
-            <img src={pokeball} alt="pokeball" className='absolute bottom-0 w-4/5 h-4/5 left-8' />
-            <img className={pokemonImageStyle} src={pokemon.image} alt="pokemon" />
+            <img src={pokeball} alt="pokeball" className='absolute bottom-0 w-4/5 h-4/5 left-8 ' />
+            <img className={pokemonImageStyle+' pokemon-current'} src={pokemon.image} alt="pokemon" />
           </div>
           {pokemonId< pokemonList.length  && 
-            <div onClick={()=>swipePokemon('next')} className='absolute -right-20 sm:right-0 top-5 z-0' >
+            <div onClick={()=>swipePokemon('next')} className='pokemon-next absolute -right-20 sm:right-0 top-5 z-0' >
               <img className={previousSelectedImage} src={(pokemonList[pokemonId] as any).image} alt="next pokemon" />
             </div>
           }

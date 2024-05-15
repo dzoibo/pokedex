@@ -25,6 +25,7 @@ const App=()=> {
       AOS.refresh();
     }, []);
     const paddingStyle='px-8 py-8 xl:px-36 2xl:px-44 w-full relative';
+
   return (
     <Provider store = {store}>
       <Router>
