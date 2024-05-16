@@ -1,5 +1,5 @@
 .about-list-title{
-    width: 9rem;
+    width: 7rem;
     font-weight: 600;
     text-align: left;
     color: #9CA3AF;
@@ -9,7 +9,8 @@
     font-weight: 600;
     color: black;
     text-transform: capitalize;
-    padding: .25rem .5rem;;
+    padding: .25rem .5rem;
+    z-index: 100;
     border-radius: 8px;
     background-color: #E5E7EB;
     display: flex;

@@ -41,7 +41,7 @@ function PokemonInfo (props: any) {
   //reusable style
   const pokemonImageStyle= 'relative w-auto h-60 sm:h-80 select-none';
   const previousSelectedImage='transition-all h-36 sm:h-44 md:h-52 -left-40 sm:-left-48 md:-left-60 top-12 brightness-0 contrast-50 opacity-70 hover:opacity-100 previous-pokemon-picture select-none';
-  const aboutItemStyle= 'flex items-center mt-2';
+  const aboutItemStyle= 'flex items-center gap-2 mt-2';
   const statItemStyle='flex items-center py-3';
   const menuItemStyle=' flex items-center sm:pb-2 sm:pr-8 text-sm transition-colors duration-200 cursor-pointer md:text-lg hover:text-black';
 
@@ -180,31 +180,34 @@ function PokemonInfo (props: any) {
   
   if(!displayLoader){
     return (
-      <div className={props.padding+' w-full overflow-hidden min-h-screen before:w-60 before:z-0 before:h-60 before:bg-gradient-to-r before:from-white/50 before:to-white/5 before:absolute before:-top-14 before:-left-28 before:rounded-3xl before:rotate-[60deg] transition-colors duration-1000 overflow-x-hidden '} style={{backgroundColor:pokemon.species.color.code}}>
-        <div className='px-0 pt-9 md:px-10 lg:px-20'>
-          <Header infos='pokemons' />
-          <div className='text-white block items-center sm:flex-row-reverse justify-between sm:flex'>
-            <div className='font-bold mb-2.5 sm:mb-0 text-2xl opacity-80'>#{pokemon.id} </div>
+      <div className={' w-full overflow-hidden min-h-screen before:w-60 before:z-0 before:h-60 before:bg-gradient-to-r before:from-white/50 before:to-white/5 before:absolute before:-top-14 before:-left-28 before:rounded-3xl before:rotate-[60deg] transition-colors duration-1000 overflow-x-hidden '} style={{backgroundColor:pokemon.species.color.code}}>
+        <div className={props.padding}>
+          <div className='px-0 pt-0 md:pt-9 md:px-10 lg:px-20'>
+            <Header infos='pokemons' />
+            <div className='text-white block items-center sm:flex-row-reverse justify-between sm:flex'>
+              <div className='font-bold mb-2.5 sm:mb-0 text-2xl opacity-80'>#{pokemon.id} </div>
 
-            <h1 className=' mt-8 flex items-center text-3xl self-start sm:text-5xl font-bold leading-[.05em]'>
-              <span className='overflow-visible text-5xl font-bold tracking-wider selection:bg-transparent bg-transparent'>
-                {pokemon.name}
-              </span>
-              < Cries url={pokemon.cries} />
-            </h1>
-          </div>
-          <div className='flex justify-between items-center mt-4'>
-            <ul className='font-semibold text-md flex gap-3'>
-              {pokemon.types.map(type => (
-                <li key={type} className='px-4 py-1 bg-white/30 text-white rounded-xl w-fit'>{type}</li>
-              ))}
-            </ul>
-            <div className=' text-lg font-semibold m-0 opacity-60 text-white text-right'>
-              <p>Seed pokemon</p>
-              <p>Quadruped</p>
+              <h1 className=' mt-8 flex items-center text-3xl self-start sm:text-5xl font-bold leading-[.05em]'>
+                <span className='overflow-visible text-5xl font-bold tracking-wider selection:bg-transparent bg-transparent'>
+                  {pokemon.name}
+                </span>
+                < Cries url={pokemon.cries} />
+              </h1>
             </div>
+            <div className='flex justify-between items-center mt-4'>
+              <ul className='font-semibold text-md flex gap-3'>
+                {pokemon.types.map(type => (
+                  <li key={type} className='px-4 py-1 bg-white/30 text-white rounded-xl w-fit'>{type}</li>
+                ))}
+              </ul>
+              <div className=' text-lg font-semibold m-0 opacity-60 text-white text-right'>
+                <p>Seed pokemon</p>
+                <p>Quadruped</p>
+              </div>
+            </div>  
           </div>  
         </div>
+        
         
         <div className='relative w-fit max-w-full m-auto'>
           {pokemonId >1 && //this means that there is still pokemon before the current pokemon so we can allow displaying back
@@ -222,7 +225,7 @@ function PokemonInfo (props: any) {
             </div>
           }
           
-          <div className=' w-screen px-8 sm:px-12 py-6 bg-white rounded-3xl min-h-[60%] max-w-3xl shadow-xl m-auto'> 
+          <div className='w-fit lg:w-screen px-8 sm:px-12 py-6 bg-white rounded-3xl min-h-[60%] max-w-3xl shadow-xl mx-3 mb-8 sm:m-auto'> 
               <ul className='flex justify-between items-center px-4 py-7 text-gray-400  '>
                 <li  className={menuItemStyle+' '+(displayedSession==='about'?'text-black':'') } onClick={async()=>changeSession('about')}>
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" aria-hidden="true" className="w-8 h-8 sm:w-6 sm:h-6 sm:mr-2"><path strokeLinecap="round" strokeLinejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z"></path></svg>
@@ -282,7 +285,7 @@ function PokemonInfo (props: any) {
 
                   <div className={aboutItemStyle+ 'sm:flex-nowrap flex-wrap'}>
                     <div className='about-list-title'>Abilities </div>
-                    <div className='flex gap-2 '>
+                    <div className='flex gap-4 '>
                       {pokemon.abilities.map(ability => (
                         <div key={ability} className='about-list-badge'>{ability}</div>
                       ))}
