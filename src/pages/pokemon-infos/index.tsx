@@ -1,7 +1,7 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate ,useParams } from 'react-router-dom';
 import { useDispatch,useSelector } from 'react-redux';
 import Generics from '../../services/models/model';
-import React, { useState,useEffect } from 'react';
+import { useState,useEffect } from 'react';
 import Header from '../../components/header';
 import Cries from '../../components/cries';
 import { Pokemon } from '../../services/interfaces';
@@ -9,7 +9,6 @@ import { loadPokemon } from '../../redux/pokemon/actionPokemon';
 import Loader from '../../components/loader/loader';
 import male from '../../assets/images/male.png';
 import female from '../../assets/images/female.png';
-import { useParams } from 'react-router-dom';
 import pokeball from '../../assets/images/pokeball.svg';
 import graypokeball from '../../assets/images/pokeball-gray.svg';
 import spinner from '../../assets/images/loader.gif';
@@ -18,6 +17,7 @@ import Moves from '../../components/moves';
 
 import ScrollTrigger from 'gsap/ScrollTrigger';
 import gsap from "gsap";
+import { flushSync } from 'react-dom';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -169,13 +169,22 @@ function PokemonInfo (props: any) {
 
   const swipePokemon=(direction: string)=>{
     /* swipeAnimation('prev'); */
-    navigate('../../pokemons/'+pokemonId);
     setDisplayedSession('about');
     if(direction==='next'){
       setPokemonId(pokemonId+1);
     }else{
       setPokemonId(pokemonId-1);
     }
+    if (!document.startViewTransition) {
+      navigate('../../pokemons/'+pokemonId);
+    } else {
+      document.startViewTransition(() => {
+        flushSync(() => {
+          navigate('../../pokemons/'+pokemonId);
+        });
+      });
+    }
+    
   }
   
   if(!displayLoader){
@@ -211,21 +220,21 @@ function PokemonInfo (props: any) {
         
         <div className='relative w-fit max-w-full m-auto'>
           {pokemonId >1 && //this means that there is still pokemon before the current pokemon so we can allow displaying back
-            <div onClick={()=>swipePokemon('prev')} className='pokemon-previous absolute -left-20 top-5 sm:left-0 z-0' >
+            <div onClick={()=>swipePokemon('prev')} className='pokemon-list-previous absolute -left-20 top-5 sm:left-0 z-0' >
               <img src={(pokemonList[pokemonId-2] as any).image} className={previousSelectedImage}  alt="previous pokemon" />
             </div>
           }
           <div className='relative mx-auto w-fit -mb-14 z-10'>
             <img src={pokeball} alt="pokeball" className='absolute bottom-0 w-4/5 h-4/5 left-8 ' />
-            <img className={pokemonImageStyle+' pokemon-current'} src={pokemon.image} alt="pokemon" />
+            <img className={pokemonImageStyle+' pokemon-list-selected'} src={pokemon.image} alt="pokemon" />
           </div>
           {pokemonId< pokemonList.length  && 
-            <div onClick={()=>swipePokemon('next')} className='pokemon-next absolute -right-20 sm:right-0 top-5 z-0' >
+            <div onClick={()=>swipePokemon('next')} className='pokemon-list-next absolute -right-20 sm:right-0 top-5 z-0' >
               <img className={previousSelectedImage} src={(pokemonList[pokemonId] as any).image} alt="next pokemon" />
             </div>
           }
           
-          <div className='w-fit lg:w-screen px-8 sm:px-12 py-6 bg-white rounded-3xl min-h-[60%] max-w-3xl shadow-xl mx-3 mb-8 sm:m-auto'> 
+          <div className='w-fit lg:w-screen px-8 sm:px-12 py-6 bg-white rounded-3xl min-h-[60%] max-w-3xl shadow-xl mx-3 mb-8 sm:mx-auto'> 
               <ul className='flex justify-between items-center px-4 py-7 text-gray-400  '>
                 <li  className={menuItemStyle+' '+(displayedSession==='about'?'text-black':'') } onClick={async()=>changeSession('about')}>
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" aria-hidden="true" className="w-8 h-8 sm:w-6 sm:h-6 sm:mr-2"><path strokeLinecap="round" strokeLinejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z"></path></svg>

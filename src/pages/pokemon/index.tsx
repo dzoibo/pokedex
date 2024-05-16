@@ -9,6 +9,8 @@ import Loader from '../../components/loader/loader';
 import { loadPokemon } from '../../redux/pokemon/actionPokemon';
 import InfiniteScroll from "react-infinite-scroll-component"
 import spinner from '../../assets/images/loader.gif';
+import { flushSync } from 'react-dom';
+import { useNavigate } from 'react-router-dom';
 
 function Pokemon(props: any) {
   const genericFunctions = new Generics();
@@ -19,7 +21,7 @@ function Pokemon(props: any) {
   const [searchKey,setSearchKey]= useState('');
   const [pokemonList, setPokemonList]=useState([]);
   const [loadingMore, setLoadingMore]=useState(false);
-
+  const navigate= useNavigate();
   
   useEffect(() => {
     if(pokemonListSaved.length<=1){
@@ -46,7 +48,7 @@ function Pokemon(props: any) {
         setPokemonList(filteredList);
       }
   }
-
+  
   const searchPokemon = (keyWord: string) => {
     const searchResult = pokemonListSaved.filter((pokemon:any) => 
       pokemon.name.includes(keyWord) && 
@@ -64,6 +66,26 @@ function Pokemon(props: any) {
     setLoadingMore(false);
   }
 
+  const displayDetails = (pokemonId: number) =>  {
+    const selectedPokemon = document.querySelector(`#pokemon-${pokemonId}`);
+    const nextPokemon = document.querySelector(`#pokemon-${pokemonId+1}`);
+    const previousPokemon= document.querySelector(`#pokemon-${pokemonId-1}`);
+    //the class below will help us to add view transition name in the css file
+    
+    selectedPokemon?.classList.add('pokemon-list-selected');
+    nextPokemon?.classList.add('pokemon-list-next');
+    previousPokemon?.classList.add('pokemon-list-previous');
+    if (!document.startViewTransition) {
+      navigate( `/pokemons/${pokemonId}`);
+    } else {
+      document.startViewTransition(() => {
+        flushSync(() => {
+          navigate( `/pokemons/${pokemonId}`);
+        });
+      });
+    }
+  }
+
   if(!displayLoader){
     return (
       <div className={props.padding}>
@@ -78,7 +100,9 @@ function Pokemon(props: any) {
             loader={loadingMore && <div className='w-full flex justify-center py-5 font-bold'><img className='w-10 h-10' src={spinner} alt="loader" /> </div>}>
               <div className='flex w-full justify-center gap-x-6 flex-wrap'>
                 {pokemonList.map((item:any) => (
-                  <PokemonCard key={item.id}  pokemon={item} />
+                  <div  key={item.id} onClick={() => displayDetails(parseInt(item.id))} className={'cursor-pointer text-white group flex justify-between relative p-8 overflow-hidden rounded-3xl h-52 w-80 px-6  mt-6 '+item.species.color.backgroung} >
+                    <PokemonCard  pokemon={item} />
+                  </div>
                 ))} 
               </div>
             </InfiniteScroll>
