@@ -101,7 +101,7 @@ function MovesList(props: any) {
         return (
             <div className={props.padding+ ' h-fit'}>
                 <Header link='home' />
-                <h1 className=' main-title text-base sm:text-[2.5rem] mt-4 sm:mt-12 w-full text-left mb-2'> Moves</h1>
+                <h1 className=' main-title text-2xl sm:text-[2.5rem] mt-4 sm:mt-12 w-full text-left mb-2'> Moves</h1>
                 <SearchBar search={searchMoves} placeholder={'Search a move !!!'} />
                 <TypeMenu filter={filterPokemon} />
                 <InfiniteScroll

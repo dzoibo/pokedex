@@ -69,7 +69,7 @@ const Items = (props: any) => {
         return (
             <div className={props.padding}>
                 <Header link='home'/>
-                <h1 className=' main-title text-base sm:text-[2.5rem] mt-4 sm:mt-12 w-full text-left mb-2'> Items</h1>
+                <h1 className=' main-title text-2xl sm:text-[2.5rem] mt-4 sm:mt-12 w-full text-left mb-2'> Items</h1>
                 <SearchBar search={searchItem} placeholder={'Search an item !!!'} />
                 <div className='grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4'>
 

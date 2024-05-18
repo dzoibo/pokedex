@@ -26,7 +26,7 @@ function TypeMenu(props: any) {
 
   return (
     <>
-      <h6 className='text-3xl font-bold text-[rgb(107,114,128)] '>Choose a type</h6>
+      <h6 className='text-2xl sm:text-3xl -mt-3 sm:mt-0  font-bold text-[rgb(107,114,128)] '>Choose a type</h6>
       <div ref={container} className='custom-scrollBar w-full overflow-x-auto h-20 flex gap-3 mt-3'>
         <button onClick={()=>updateFilter('All')}  className="after:bg-black opacity-0"  >
           <span 

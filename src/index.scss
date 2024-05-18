@@ -42,23 +42,19 @@ code {
 ::view-transition-old(pokemon-list-selected),
 ::view-transition-old(pokemon-list-next),
 ::view-transition-old(pokemon-list-previous){
-  animation: swipeEnter 0.5s ease-out forwards;
 }
 
 ::view-transition-new(pokemon-list-selected),
 ::view-transition-new(pokemon-list-next),
 ::view-transition-new(pokemon-list-previous) {
-  animation: swipeLeave 0.5s ease-out  forwards; 
 } 
 
 @keyframes swipeLeave {
   from {
     opacity: 0;
-    border: 0px solid green
   }
   to {
     opacity: 1;
-    border: 2px solid green;
   }
 }
 
@@ -73,3 +69,5 @@ code {
   }
   
 }
+
+

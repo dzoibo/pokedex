@@ -59,6 +59,7 @@ function PokemonInfo (props: any) {
       setPokemonList(pokemonListSaved);
       setPokemon(pokemonListSaved[pokemonId-1]);
       setDisplayLoader(false);
+      typeAnimation();
     }
   }, [pokemonId]);
 
@@ -167,6 +168,15 @@ function PokemonInfo (props: any) {
 
   }
 
+  const typeAnimation=()=>{
+    const types=document.querySelectorAll('.pokemon-types');
+    const genus=document.querySelector('.pokemon-genus');
+    types.forEach((type,index) =>{
+      gsap.fromTo(type, {opacity: 0}, {opacity: 1, ease: 'power1.out'});
+    });
+    gsap.fromTo(genus, {opacity: 0}, {opacity: 0.6, ease: 'power1.out'});
+  }
+
   const swipePokemon=(direction: string)=>{
     /* swipeAnimation('prev'); */
     setDisplayedSession('about');
@@ -190,14 +200,14 @@ function PokemonInfo (props: any) {
   if(!displayLoader){
     return (
       <div className={' w-full overflow-hidden min-h-screen before:w-60 before:z-0 before:h-60 before:bg-gradient-to-r before:from-white/50 before:to-white/5 before:absolute before:-top-14 before:-left-28 before:rounded-3xl before:rotate-[60deg] transition-colors duration-1000 overflow-x-hidden '} style={{backgroundColor:pokemon.species.color.code}}>
-        <div className={props.padding}>
+        <div className={props.padding + ' !pb-2 sm:pb-8'}>
           <div className='px-0 pt-0 md:pt-9 md:px-10 lg:px-20'>
             <Header infos='pokemons' />
             <div className='text-white block items-center sm:flex-row-reverse justify-between sm:flex'>
-              <div className='font-bold mb-2.5 sm:mb-0 text-2xl opacity-80'>#{pokemon.id} </div>
+              <div className='font-bold mt-5 sm:mt-0 text-2xl opacity-80'>#{pokemon.id} </div>
 
-              <h1 className=' mt-8 flex items-center text-3xl self-start sm:text-5xl font-bold leading-[.05em]'>
-                <span className='overflow-visible text-5xl font-bold tracking-wider selection:bg-transparent bg-transparent'>
+              <h1 className=' overflow-hidden -mt-0 sm:mt-8 flex items-center text-3xl self-start sm:text-5xl font-bold leading-[.05em]'>
+                <span className='pokemon-info-name overflow-visible text-5xl font-bold tracking-wider selection:bg-transparent bg-transparent'>
                   {pokemon.name}
                 </span>
                 < Cries url={pokemon.cries} />
@@ -206,12 +216,12 @@ function PokemonInfo (props: any) {
             <div className='flex justify-between items-center mt-4'>
               <ul className='font-semibold text-md flex gap-3'>
                 {pokemon.types.map(type => (
-                  <li key={type} className='px-4 py-1 bg-white/30 text-white rounded-xl w-fit'>{type}</li>
+                  <li key={type} className='pokemon-types px-4 py-1 bg-white/30 text-white rounded-xl w-fit'>{type}</li>
                 ))}
               </ul>
-              <div className=' text-lg font-semibold m-0 opacity-60 text-white text-right'>
-                <p>Seed pokemon</p>
-                <p>Quadruped</p>
+              <div className='pokemon-genus capitalize text-lg font-semibold m-0 opacity-60 text-white text-right'>
+                <p>{pokemon.species.genera.filter(item=>item.language.name==='en')[0].genus } </p>
+                <p>{pokemon.species.shape.name}</p>
               </div>
             </div>  
           </div>  
@@ -220,7 +230,7 @@ function PokemonInfo (props: any) {
         
         <div className='relative w-fit max-w-full m-auto'>
           {pokemonId >1 && //this means that there is still pokemon before the current pokemon so we can allow displaying back
-            <div onClick={()=>swipePokemon('prev')} className='pokemon-list-previous absolute -left-20 top-5 sm:left-0 z-0' >
+            <div onClick={()=>swipePokemon('prev')} className='pokemon-list-previous absolute -left-14 top-5 sm:left-0 z-0' >
               <img src={(pokemonList[pokemonId-2] as any).image} className={previousSelectedImage}  alt="previous pokemon" />
             </div>
           }
@@ -229,12 +239,12 @@ function PokemonInfo (props: any) {
             <img className={pokemonImageStyle+' pokemon-list-selected'} src={pokemon.image} alt="pokemon" />
           </div>
           {pokemonId< pokemonList.length  && 
-            <div onClick={()=>swipePokemon('next')} className='pokemon-list-next absolute -right-20 sm:right-0 top-5 z-0' >
+            <div onClick={()=>swipePokemon('next')} className='pokemon-list-next absolute -right-14 sm:right-0 top-5 z-0' >
               <img className={previousSelectedImage} src={(pokemonList[pokemonId] as any).image} alt="next pokemon" />
             </div>
           }
           
-          <div className='w-fit lg:w-screen px-8 sm:px-12 py-6 bg-white rounded-3xl min-h-[60%] max-w-3xl shadow-xl mx-3 mb-8 sm:mx-auto'> 
+          <div className='w-[90vw] sm:w-screen px-8 sm:px-12 py-6 bg-white rounded-3xl min-h-[60%] max-w-3xl shadow-xl mx-3 mb-8 sm:mx-auto'> 
               <ul className='flex justify-between items-center px-4 py-7 text-gray-400  '>
                 <li  className={menuItemStyle+' '+(displayedSession==='about'?'text-black':'') } onClick={async()=>changeSession('about')}>
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" aria-hidden="true" className="w-8 h-8 sm:w-6 sm:h-6 sm:mr-2"><path strokeLinecap="round" strokeLinejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z"></path></svg>
@@ -247,7 +257,7 @@ function PokemonInfo (props: any) {
                 </li>
 
                 <li  className={menuItemStyle+' '+(displayedSession==='evolution'?'text-black':'') }  onClick={async()=>changeSession('evolution')}>
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" aria-hidden="true" className="w-8 h-8 sm:w-6 sm:h-6 sm:mr-2"><path strokeLinecap="round" strokeLinejoin="round" d="M7.5 14.25v2.25m3-4.5v4.5m3-6.75v6.75m3-9v9M6 20.25h12A2.25 2.25 0 0020.25 18V6A2.25 2.25 0 0018 3.75H6A2.25 2.25 0 003.75 6v12A2.25 2.25 0 006 20.25z"></path></svg>
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" aria-hidden="true" className="w-8 h-8 sm:w-6 sm:h-6 sm:mr-2"><path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l7.5-7.5 7.5 7.5m-15 6l7.5-7.5 7.5 7.5"></path></svg>
                   <span className='hidden sm:block capitalize'>Evolution</span>
                 </li>
 
@@ -401,7 +411,9 @@ function PokemonInfo (props: any) {
                   {displaySpinner === false ? (
                     <>
                       {pokemon.moves.map(item => (
-                        <Moves key={item.name} move={item}  />
+                        <div key={item.name}  className='mb-6'>
+                          <Moves move={item}  />
+                        </div>
                       ))}
                     </>
                   ):(

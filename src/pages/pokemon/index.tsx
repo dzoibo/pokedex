@@ -90,7 +90,7 @@ function Pokemon(props: any) {
     return (
       <div className={props.padding}>
           <Header link='home'/>
-          <h1 className=' main-title text-lg sm:text-[2.5rem] mt-4 sm:mt-12 w-full text-left mb-2'> Pokemons</h1>
+          <h1 className=' main-title text-2xl sm:text-[2.5rem] mt-4 sm:mt-12 w-full text-left mb-2'> Pokemons</h1>
           <SearchBar search={searchPokemon} placeholder={'Search a pokemon !!!'} />
           <TypeMenu filter={filterPokemon} />
           <InfiniteScroll

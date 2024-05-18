@@ -39,7 +39,7 @@ const Landing = (props: any) => {
       <div className={props.padding}>
         <Header/>
         <div>
-          <h1 data-aos="fade-up" className=' main-title text-xl sm:text-[2.5rem] mt-4 sm:mt-12 w-full text-left mb-2'> Welcome to the pokedev</h1>
+          <h1 data-aos="fade-up" className=' main-title text-2xl sm:text-[2.5rem] mt-4 sm:mt-12 w-full text-left mb-2'> Welcome to the pokedev</h1>
           <div  className='grid sm:grid-cols-2 gap-6 sm:gap-8'>
             <Link data-aos="fade-up" data-aos-delay="100"  className={menuCardStyle + 'bg-[#58af94]'} to='pokemons'>
               <p className='ml-6 sm:ml-12'>Pokémons</p> 
