@@ -425,7 +425,12 @@ function PokemonInfo (props: any) {
           
 
         </div>
-       
+        <div className='flex flex-col lg:flex-row-reverse items-end gap-4 m-4 bg-transparent text-center'>
+              <a className="mt-10 block font-semibold text-white rounded px-4 py-2 md:w-fit bg-black" href="https://github.com/dzoibo" target="_blank" rel="noreferrer">© By Dzoibo ivan</a>
+              <a className="mt-10 block font-semibold text-white rounded px-4 py-2 md:w-fit bg-[#DC6661] " href="https://pokeapi.co/" target="_blank" rel="noreferrer">Data - PokeAPI</a>
+              <a className="mt-10 block font-semibold text-white rounded px-4 py-2 md:w-fit bg-[#95C8F9]" href="https://projectpokemon.org/" target="_blank" rel="noreferrer">GIFs - Project Pokemon</a>
+              <a className="mt-10 block font-semibold text-white rounded px-4 py-2 md:w-fit bg-[#A7BD1C] " href="https://dribbble.com/shots/6540871-Pokedex-App" target="_blank" rel="noreferrer">© Inspiration - Dribble</a>
+            </div>
 
       </div> 
        

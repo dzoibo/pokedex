@@ -80,8 +80,12 @@ const Landing = (props: any) => {
           </div>
           
         </div> 
-        {/* <a className="mt-10 block font-semibold text-white rounded px-4 py-2 md:w-fit bg-black" href="https://twitter.com/ivan_dzoibo" target="_blank" rel="noreferrer">© By Dzoibo ivan</a>
- */}
+        <footer className='flex flex-col md:flex-row items-end gap-4 mt-8 bg-transparent text-center *:block *font-semibold *:w-full *:py-2 *:text-white *:rounded *:px-4 *:md:w-fit'>
+          <a className="bg-black" href="https://github.com/dzoibo" target="_blank" rel="noreferrer">© By Dzoibo ivan</a>
+          <a className="bg-[#DC6661] " href="https://pokeapi.co/" target="_blank" rel="noreferrer">Data - PokeAPI</a>
+          <a className="bg-[#95C8F9]" href="https://projectpokemon.org/" target="_blank" rel="noreferrer">GIFs - Project Pokemon</a>
+          <a className="bg-[#A7BD1C] " href="https://dribbble.com/shots/6540871-Pokedex-App" target="_blank" rel="noreferrer">© Inspiration - Dribble</a>
+        </footer>
       </div>
     )
   }else{
