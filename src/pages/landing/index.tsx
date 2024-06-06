@@ -15,23 +15,16 @@ const Landing = (props: any) => {
   const [pokemon,setPokemon]= useState( new Pokemon());
   const [displayLoader, setDisplayLoader]= useState(true)
   const genericFunctions = new Generics();
-  const dispatch = useDispatch()
-  const pokemonList=useSelector((state:any) => state.pokemonList);
-  
+  const dispatch = useDispatch();
   
   useEffect(() => {
     const randomId = Math.floor(Math.random() * 20) + 1;
     setDisplayLoader(true);
-    if(pokemonList.length<=1){
-      genericFunctions.getPokemon(randomId).then((response: any)=>{
-        setPokemon(response);
-        dispatch(loadPokemon([response]))
-        setDisplayLoader(false);
-      })
-    }else{
-      setPokemon(pokemonList[randomId-1])// we remove 1 to make sure that the random id will always start at 1 and end at 2
+    genericFunctions.getPokemon(randomId).then((response: any)=>{
+      setPokemon(response);
+      dispatch(loadPokemon([response]))
       setDisplayLoader(false);
-    }
+    });
   }, []);
 
   if(!displayLoader){

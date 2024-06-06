@@ -60,6 +60,7 @@ function Pokemon(props: any) {
   const fetchMorePokemon = async() =>{
     setLoadingMore(true);
     const response = await genericFunctions.getPokemons(pokemonList.length+1,pokemonList.length+6);
+    console.log(response.length);
     const updatedList: any= [...pokemonList,...response];
     setPokemonList(updatedList);
     dispatch(loadPokemon(updatedList));

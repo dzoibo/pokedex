@@ -1,10 +1,11 @@
-import { useNavigate,Link } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import logo from '../../assets/images/logo.png'
 import { flushSync } from 'react-dom';
 
 function Header(props: any) {
   const navigate = useNavigate();
-  
+  const currentPath = useLocation().pathname;
+
   const viewNavigate=(newRoute: string) => {
     if (!document.startViewTransition) {
       navigate( newRoute);
@@ -33,9 +34,12 @@ function Header(props: any) {
           </div>
         }
       </header>
-      <div onClick={() => viewNavigate('/')}>
-        <img className='absolute top-0 right-0 m-4 sm:m-8 w-12 sm:w-16 h-12 sm:h-16 z-50 hover:rotate-180 transition-transform' src={logo} alt='logo' />
-      </div>
+      {currentPath!=='/' && 
+        <div onClick={() => viewNavigate('/')}>
+          <img className='absolute top-0 right-0 m-4 sm:m-8 w-12 sm:w-16 h-12 sm:h-16 z-50 hover:rotate-180 transition-transform' src={logo} alt='logo' />
+        </div>
+      }
+      
     </>
     
   )
