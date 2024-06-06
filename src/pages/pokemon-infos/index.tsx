@@ -84,11 +84,8 @@ function PokemonInfo (props: any) {
           })
         }) 
       }, 100);
-      
     }
   }
-
-  
 
   const loadMoves= async ()=>{
     setDisplaySpinner(true);
@@ -114,8 +111,6 @@ function PokemonInfo (props: any) {
           trigger: container,
           start: "top 90%",
           toggleActions:'play none none reverse',
-         /*  scrub: 1, 
-          pin: true */
         },
         duration: 0.3,
         rotate:'0',
@@ -178,7 +173,7 @@ function PokemonInfo (props: any) {
   }
 
   const swipePokemon=(direction: string)=>{
-    /* swipeAnimation('prev'); */
+    swipeAnimation('prev');
     setDisplayedSession('about');
     if(direction==='next'){
       setPokemonId(pokemonId+1);

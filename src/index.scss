@@ -39,7 +39,7 @@ code {
   view-transition-name: pokemon-list-previous
 }
 
-::view-transition-old(pokemon-list-selected),
+/* ::view-transition-old(pokemon-list-selected),
 ::view-transition-old(pokemon-list-next),
 ::view-transition-old(pokemon-list-previous){
 }
@@ -48,7 +48,7 @@ code {
 ::view-transition-new(pokemon-list-next),
 ::view-transition-new(pokemon-list-previous) {
 } 
-
+ */
 @keyframes swipeLeave {
   from {
     opacity: 0;
