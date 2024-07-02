@@ -125,14 +125,14 @@ function PokemonInfo (props: any) {
     })
   }
 
-  const swipeAnimation=(direction: string)=>{
+ /*  const swipeAnimation=(direction: string)=>{
     const previousPokemon=document.querySelector('.pokemon-previous');
     const nextPokemon=document.querySelector('.pokemon-next');
     const currentPokemon=document.querySelector('.pokemon-current');
     
     if(direction==='prev'){
       gsap.to(previousPokemon,{
-        /* absolute -left-20 top-5 sm:left-0 z-0 */
+       
         left: '50%',
         x:'-50%',
         duration:0.5,
@@ -147,7 +147,6 @@ function PokemonInfo (props: any) {
       });
 
       gsap.to(nextPokemon,{
-        /* absolute -left-20 top-5 sm:left-0 z-0 */
         opacity:0,
         scale: '0.5',
         duration:0.3,
@@ -161,7 +160,7 @@ function PokemonInfo (props: any) {
       })
     }
 
-  }
+  }*/
 
   const typeAnimation=()=>{
     const types=document.querySelectorAll('.pokemon-types');
@@ -173,7 +172,7 @@ function PokemonInfo (props: any) {
   }
 
   const swipePokemon=(direction: string)=>{
-    swipeAnimation('prev');
+    //swipeAnimation('prev');
     setDisplayedSession('about');
     if(direction==='next'){
       setPokemonId(pokemonId+1);
@@ -184,7 +183,7 @@ function PokemonInfo (props: any) {
       navigate('../../pokemons/'+pokemonId);
     } else {
       document.startViewTransition(() => {
-        flushSync(() => {
+        flushSync(async () => {
           navigate('../../pokemons/'+pokemonId);
         });
       });
@@ -226,16 +225,16 @@ function PokemonInfo (props: any) {
         <div className='relative w-fit max-w-full m-auto'>
           {pokemonId >1 && //this means that there is still pokemon before the current pokemon so we can allow displaying back
             <div onClick={()=>swipePokemon('prev')} className='pokemon-list-previous absolute -left-14 top-5 sm:left-0 z-0' >
-              <img src={(pokemonList[pokemonId-2] as any).image} className={previousSelectedImage}  alt="previous pokemon" />
+              <img src={(pokemonList[pokemonId-2] as any).image} style={{'viewTransitionName':'pokemon-'+(pokemonId-1)}} className={previousSelectedImage}  alt="previous pokemon" />
             </div>
           }
           <div className='relative mx-auto w-fit -mb-14 z-10'>
             <img src={pokeball} alt="pokeball" className='absolute bottom-0 w-4/5 h-4/5 left-8 ' />
-            <img className={pokemonImageStyle+' pokemon-list-selected'} src={pokemon.image} alt="pokemon" />
+            <img className={pokemonImageStyle} style={{'viewTransitionName':'pokemon-'+pokemonId}}  src={pokemon.image} alt="pokemon" />
           </div>
           {pokemonId< pokemonList.length  && 
             <div onClick={()=>swipePokemon('next')} className='pokemon-list-next absolute -right-14 sm:right-0 top-5 z-0' >
-              <img className={previousSelectedImage} src={(pokemonList[pokemonId] as any).image} alt="next pokemon" />
+              <img className={previousSelectedImage} style={{'viewTransitionName':'pokemon-'+(pokemonId+1)}} src={(pokemonList[pokemonId] as any).image} alt="next pokemon" />
             </div>
           }
           
@@ -425,13 +424,6 @@ function PokemonInfo (props: any) {
           
 
         </div>
-        <div className='flex flex-col lg:flex-row-reverse items-end gap-4 m-4 bg-transparent text-center'>
-              <a className="mt-10 block font-semibold text-white rounded px-4 py-2 md:w-fit bg-black" href="https://github.com/dzoibo" target="_blank" rel="noreferrer">© By Dzoibo ivan</a>
-              <a className="mt-10 block font-semibold text-white rounded px-4 py-2 md:w-fit bg-[#DC6661] " href="https://pokeapi.co/" target="_blank" rel="noreferrer">Data - PokeAPI</a>
-              <a className="mt-10 block font-semibold text-white rounded px-4 py-2 md:w-fit bg-[#95C8F9]" href="https://projectpokemon.org/" target="_blank" rel="noreferrer">GIFs - Project Pokemon</a>
-              <a className="mt-10 block font-semibold text-white rounded px-4 py-2 md:w-fit bg-[#A7BD1C] " href="https://dribbble.com/shots/6540871-Pokedex-App" target="_blank" rel="noreferrer">© Inspiration - Dribble</a>
-            </div>
-
       </div> 
        
     )

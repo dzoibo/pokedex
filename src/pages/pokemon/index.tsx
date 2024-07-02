@@ -60,7 +60,6 @@ function Pokemon(props: any) {
   const fetchMorePokemon = async() =>{
     setLoadingMore(true);
     const response = await genericFunctions.getPokemons(pokemonList.length+1,pokemonList.length+6);
-    console.log(response.length);
     const updatedList: any= [...pokemonList,...response];
     setPokemonList(updatedList);
     dispatch(loadPokemon(updatedList));
@@ -79,7 +78,7 @@ function Pokemon(props: any) {
     if (!document.startViewTransition) {
       navigate( `/pokemons/${pokemonId}`);
     } else {
-      document.startViewTransition(() => {
+      document.startViewTransition(async() => {
         flushSync(() => {
           navigate( `/pokemons/${pokemonId}`);
         });

@@ -20,9 +20,9 @@ function PokemonCard(props: any) {
                 ))}
             </ul>
         </div>
-        <img id={`pokemon-${parseInt(pokemon.id)}`}  className='group-hover:scale-110 transition-all duration-300 ease  -mr-6 relative h-40 w-40 z-20' alt='pokemon presentation' src={pokemon.image} />
+        <img  style={{'viewTransitionName':'pokemon-'+parseInt(pokemon.id)}} id={`pokemon-${parseInt(pokemon.id)}`}  className='group-hover:scale-110 transition-all duration-300 ease  -mr-6 relative h-40 w-40 z-20' alt='pokemon presentation' src={pokemon.image} />
         <img src={pokeball} alt='pokeball icon' className='absolute transition-all duration-300 ease w-44 h-44 -right-3 -bottom-8 group-hover:rotate-45'/>
-    </>
+    </>  
     
   )
 }
