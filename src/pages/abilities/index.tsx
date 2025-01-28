@@ -2,8 +2,6 @@ import React, { useEffect, useState } from 'react';
 import Header from '../../components/header'
 import SearchBar from '../../components/searchBar'
 import Generics from '../../services/models/model';
-import { useDispatch, useSelector } from 'react-redux';
-import { loadAbility } from '../../redux/pokemon/actionPokemon';
 import Loader from '../../components/loader/loader';
 
 import ScrollTrigger from 'gsap/ScrollTrigger';
@@ -12,9 +10,8 @@ gsap.registerPlugin(ScrollTrigger);
 
 function Abilities(props: any) {
   const genericFunctions = new Generics();
-  const dispatch = useDispatch();
   const [displayLoader, setDisplayLoader]= useState(false);
-  const abilityListSaved= useSelector((state: any) => state.abilityList)
+  const abilityListSaved: any=[];
   const [abilityList, setAbilityList]=useState([]);
 
   useEffect(() =>{
@@ -22,7 +19,6 @@ function Abilities(props: any) {
       setDisplayLoader(true);
       genericFunctions.getAbilities(1,28).then((response: any)=>{
         setAbilityList(response);
-        dispatch(loadAbility(response));
         setDisplayLoader(false);
       })
     }else{

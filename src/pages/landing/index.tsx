@@ -1,13 +1,11 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import Header from '../../components/header';
 import { Pokemon } from '../../services/interfaces';
-import { useDispatch,useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import pokeball from '../../assets/images/pokeball.svg';
 import Generics from '../../services/models/model';
 import Cries from '../../components/cries';
-import { loadPokemon } from '../../redux/pokemon/actionPokemon';
 import Loader from '../../components/loader/loader';
 
 const Landing = (props: any) => {
@@ -15,14 +13,12 @@ const Landing = (props: any) => {
   const [pokemon,setPokemon]= useState( new Pokemon());
   const [displayLoader, setDisplayLoader]= useState(true)
   const genericFunctions = new Generics();
-  const dispatch = useDispatch();
   
   useEffect(() => {
     const randomId = Math.floor(Math.random() * 20) + 1;
     setDisplayLoader(true);
     genericFunctions.getPokemon(randomId).then((response: any)=>{
       setPokemon(response);
-      dispatch(loadPokemon([response]))
       setDisplayLoader(false);
     });
   }, []);
@@ -36,19 +32,19 @@ const Landing = (props: any) => {
           <div  className='grid sm:grid-cols-2 gap-6 sm:gap-8'>
             <Link data-aos="fade-up" data-aos-delay="100"  className={menuCardStyle + 'bg-[#58af94]'} to='pokemons'>
               <p className='ml-6 sm:ml-12'>Pokémons</p> 
-              <img className='absolute -right-8 -bottom-6 h-36 w-36' alt='pokeball icon' src={pokeball}/>
+              <img className='absolute -right-8 -bottom-6 size-36' alt='pokeball icon' src={pokeball}/>
             </Link>
-            <Link to='moves' data-aos="fade-up" data-aos-delay="200" className={menuCardStyle+' bg-[#dc6661] hover:before:!bg-white/20'}>
+            <Link to='moves' data-aos="fade-up" data-aos-delay="200" className={menuCardStyle+' bg-[#dc6661]'}>
               <p className='ml-6 sm:ml-12'>Moves</p> 
-              <img className='absolute -right-8 -bottom-6 h-6 w-36' alt='pokeball icon' src={pokeball}/>
+              <img className='absolute -right-8 -bottom-6 size-36' alt='pokeball icon' src={pokeball}/>
             </Link>
             <Link to='abilities' data-aos="fade-up" data-aos-delay="300" className={menuCardStyle+'bg-[#75aef0]  '}> 
               <p className='ml-6 sm:ml-12'>Abilities</p> 
-              <img className='absolute -right-8 -bottom-6 h-36 w-36' alt='pokeball icon' src={pokeball}/>
+              <img className='absolute -right-8 -bottom-6 size-36' alt='pokeball icon' src={pokeball}/>
             </Link>
-            <Link data-aos="fade-up" data-aos-delay="400" className={menuCardStyle+'bg-[#F7CD5C] hover:before:!bg-white/20'} to={'items'}>
+            <Link data-aos="fade-up" data-aos-delay="400" className={menuCardStyle+'bg-[#F7CD5C] '} to={'items'}>
               <p className='ml-6 sm:ml-12 '>items</p> 
-              <img className='absolute -right-8 -bottom-6 h-36 w-36' alt='pokeball icon' src={pokeball}/>
+              <img className='absolute -right-8 -bottom-6 size-36' alt='pokeball icon' src={pokeball}/>
             </Link>
           </div>
           

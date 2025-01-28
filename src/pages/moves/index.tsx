@@ -5,8 +5,6 @@ import SearchBar from '../../components/searchBar';
 import TypeMenu from '../../components/typeMenu';
 import Moves from '../../components/moves';
 import Generics from '../../services/models/model';
-import { useDispatch, useSelector } from 'react-redux';
-import { loadMoves } from '../../redux/pokemon/actionPokemon';
 import InfiniteScroll from "react-infinite-scroll-component"
 import spinner from '../../assets/images/loader.gif';
 import Loader from '../../components/loader/loader';
@@ -18,9 +16,8 @@ gsap.registerPlugin(ScrollTrigger);
 
 function MovesList(props: any) {
     const genericFunctions = new Generics();
-    const dispatch = useDispatch();
     const [displayLoader, setDisplayLoader]= useState(false);
-    const moveListSaved= useSelector((state: any) => state.moveList)
+    const moveListSaved: any= [];
     const [moveList, setMoveList]=useState([]);
     const [selectedType,setType]= useState('All');
     const [searchKey,setSearchKey]= useState('');
@@ -31,7 +28,6 @@ function MovesList(props: any) {
           setDisplayLoader(true);
           genericFunctions.getMoves(1,20).then((response: any)=>{
             setMoveList(response);
-            dispatch(loadMoves(response));
             setDisplayLoader(false);
           })
         }else{
@@ -45,7 +41,6 @@ function MovesList(props: any) {
       const response = await genericFunctions.getMoves(moveList.length+1,moveList.length+8);
       const updatedList: any= [...moveList,...response];
       setMoveList(updatedList);
-      dispatch(loadMoves(updatedList));
       setLoadingMore(false);
     }
     

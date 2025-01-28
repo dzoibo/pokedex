@@ -1,41 +1,31 @@
 import { useEffect, useState } from 'react'
 import Header from '../../components/header';
 import SearchBar from '../../components/searchBar';
-import { useDispatch,useSelector } from 'react-redux';
 import TypeMenu from '../../components/typeMenu';
 import PokemonCard from '../../components/pokemonCard';
 import Generics from '../../services/models/model';
 import Loader from '../../components/loader/loader';
-import { loadPokemon } from '../../redux/pokemon/actionPokemon';
 import InfiniteScroll from "react-infinite-scroll-component"
 import spinner from '../../assets/images/loader.gif';
 import { flushSync } from 'react-dom';
 import { useNavigate } from 'react-router-dom';
+import pokemonData from '../../assets/data/pokemons.json';
 
 function Pokemon(props: any) {
   const genericFunctions = new Generics();
-  const dispatch = useDispatch()
-  const pokemonListSaved=useSelector((state:any) => state.pokemonList);
+  const pokemonListSaved=pokemonData as any[];
   const [displayLoader, setDisplayLoader]= useState(false);
   const [selectedType,setType]= useState('All');
   const [searchKey,setSearchKey]= useState('');
-  const [pokemonList, setPokemonList]=useState([]);
+  const [pokemonList, setPokemonList]=useState<any>([]);
   const [loadingMore, setLoadingMore]=useState(false);
   const navigate= useNavigate();
   
   useEffect(() => {
-    if(pokemonListSaved.length<=1){
       setDisplayLoader(true);
-      genericFunctions.getPokemons(1,20).then((response: any)=>{
-        setPokemonList(response);
-        dispatch(loadPokemon(response));
-        setDisplayLoader(false);
-      })
-    }
-    else{
+      console.log(pokemonListSaved)
       setPokemonList(pokemonListSaved)
       setDisplayLoader(false);
-    }
   }, []);
 
 
@@ -62,7 +52,6 @@ function Pokemon(props: any) {
     const response = await genericFunctions.getPokemons(pokemonList.length+1,pokemonList.length+6);
     const updatedList: any= [...pokemonList,...response];
     setPokemonList(updatedList);
-    dispatch(loadPokemon(updatedList));
     setLoadingMore(false);
   }
 

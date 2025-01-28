@@ -1,11 +1,9 @@
 import { useNavigate ,useParams } from 'react-router-dom';
-import { useDispatch,useSelector } from 'react-redux';
 import Generics from '../../services/models/model';
 import { useState,useEffect } from 'react';
 import Header from '../../components/header';
 import Cries from '../../components/cries';
 import { Pokemon } from '../../services/interfaces';
-import { loadPokemon } from '../../redux/pokemon/actionPokemon';
 import Loader from '../../components/loader/loader';
 import male from '../../assets/images/male.png';
 import female from '../../assets/images/female.png';
@@ -26,8 +24,7 @@ gsap.registerPlugin(ScrollTrigger);
 function PokemonInfo (props: any) {
   const navigate = useNavigate();
   const genericFunctions = new Generics();
-  const dispatch = useDispatch();
-  const pokemonListSaved=useSelector((state:any) => state.pokemonList);
+  const pokemonListSaved: any =[]
 
   const id= parseInt(useParams().pokemonId as string);
   const [pokemonId,setPokemonId]= useState(id);
@@ -50,7 +47,6 @@ function PokemonInfo (props: any) {
       setDisplayLoader(true);
       genericFunctions.getPokemons(1,20).then((response: any)=>{
         setPokemonList(response);
-        dispatch(loadPokemon(response));
         setPokemon(response[pokemonId-1]);
         setDisplayLoader(false);
       })
@@ -96,7 +92,6 @@ function PokemonInfo (props: any) {
       }
       let index = pokemonListSaved.findIndex((item: any) => item.id===pokemon.id);
       pokemonListSaved[index]=pokemon;
-      dispatch(loadPokemon(pokemonListSaved));
       setDisplaySpinner(false)
       setTimeout(() => {
         setupMoveAnimation();

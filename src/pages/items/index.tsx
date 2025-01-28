@@ -2,19 +2,16 @@ import { useState,useEffect } from 'react';
 import SearchBar from '../../components/searchBar';
 import Header from '../../components/header';
 import Generics from '../../services/models/model';
-import { useDispatch, useSelector } from 'react-redux';
 import Loader from '../../components/loader/loader';
 import pokemonCoin from '../../assets/images/coin.png';
-import { loadItems } from '../../redux/pokemon/actionPokemon';
 import ScrollTrigger from 'gsap/ScrollTrigger';
 import gsap from "gsap";
 gsap.registerPlugin(ScrollTrigger);
 
 const Items = (props: any) => {
     const genericFunctions = new Generics();
-    const dispatch = useDispatch();
     const [displayLoader, setDisplayLoader]= useState(false);
-    const itemsListSaved= useSelector((state: any) =>state.itemList);
+    const itemsListSaved: any=[];
     const [itemList, setItemList]=useState([]);
     const animationBaseStyle=' overflow-hidden opacity-0 translate-y-[100px] skew-x-0 skew-y-[10deg] scale-90 ';
 
@@ -24,7 +21,6 @@ const Items = (props: any) => {
           setDisplayLoader(true);
           genericFunctions.getItems(1,28).then((response: any)=>{
             setItemList(response);
-            dispatch(loadItems(response));
             setDisplayLoader(false);
           })
         }else{
