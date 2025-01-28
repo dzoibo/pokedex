@@ -9,6 +9,7 @@ import InfiniteScroll from "react-infinite-scroll-component"
 import spinner from '../../assets/images/loader.gif';
 import Loader from '../../components/loader/loader';
 import ScrollTrigger from 'gsap/ScrollTrigger';
+import movesData from '../../assets/data/moves.json';
 import gsap from "gsap";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -17,30 +18,28 @@ gsap.registerPlugin(ScrollTrigger);
 function MovesList(props: any) {
     const genericFunctions = new Generics();
     const [displayLoader, setDisplayLoader]= useState(false);
-    const moveListSaved: any= [];
+    const [moveListSaved, setMoveListSaved]=useState<any>(movesData as any[]);
+
     const [moveList, setMoveList]=useState([]);
     const [selectedType,setType]= useState('All');
     const [searchKey,setSearchKey]= useState('');
     const [loadingMore, setLoadingMore]=useState(false);
 
     useEffect(() =>{
-        if(moveListSaved.length<=1){
-          setDisplayLoader(true);
-          genericFunctions.getMoves(1,20).then((response: any)=>{
-            setMoveList(response);
-            setDisplayLoader(false);
-          })
-        }else{
-          setMoveList(moveListSaved);
-          setDisplayLoader(false);
-        }
+      setMoveList(moveListSaved);
     },[]);
 
     const fetchMoreMoves = async() =>{
+      if(selectedType!=='All'){
+        return;
+      }
       setLoadingMore(true);
       const response = await genericFunctions.getMoves(moveList.length+1,moveList.length+8);
-      const updatedList: any= [...moveList,...response];
-      setMoveList(updatedList);
+      const updatedList: any= [...moveListSaved,...response];
+      if(selectedType==='All'){
+        setMoveList(updatedList);
+        setMoveListSaved(updatedList)
+      }
       setLoadingMore(false);
     }
     
@@ -102,10 +101,10 @@ function MovesList(props: any) {
                 <InfiniteScroll
                 dataLength={moveList.length}
                 next={fetchMoreMoves} 
-                hasMore={moveListSaved.length<100} 
+                hasMore={moveListSaved.length<300} 
                 loader={loadingMore && <div className='w-full flex justify-center font-bold my-5 '><img className='w-10 h-10' src={spinner} alt="loader" /> </div>}>
                   
-                  <div className='mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 overflow-y-hidden'>
+                  <div className='mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 overflow-y-hidden px-6'>
                     {moveList.map((item:any) => (
                         <Moves key={item.name} move={item}  />
                     ))} 
