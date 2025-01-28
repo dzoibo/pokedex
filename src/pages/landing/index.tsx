@@ -15,7 +15,7 @@ const Landing = (props: any) => {
   const genericFunctions = new Generics();
   
   useEffect(() => {
-    const randomId = Math.floor(Math.random() * 20) + 1;
+    const randomId = Math.floor(Math.random() * 150) + 1;
     setDisplayLoader(true);
     genericFunctions.getPokemon(randomId).then((response: any)=>{
       setPokemon(response);

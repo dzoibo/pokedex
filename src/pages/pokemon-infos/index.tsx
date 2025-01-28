@@ -12,6 +12,7 @@ import graypokeball from '../../assets/images/pokeball-gray.svg';
 import spinner from '../../assets/images/loader.gif';
 import './PokemonInfo.scss';
 import Moves from '../../components/moves';
+import pokemonData from '../../assets/data/pokemons.json';
 
 import ScrollTrigger from 'gsap/ScrollTrigger';
 import gsap from "gsap";
@@ -24,17 +25,15 @@ gsap.registerPlugin(ScrollTrigger);
 function PokemonInfo (props: any) {
   const navigate = useNavigate();
   const genericFunctions = new Generics();
-  const pokemonListSaved: any =[]
-
+  const pokemonListSaved=pokemonData as any[];
   const id= parseInt(useParams().pokemonId as string);
   const [pokemonId,setPokemonId]= useState(id);
 
   const [displayedSession,setDisplayedSession]= useState('about');
   const [displayLoader, setDisplayLoader]= useState(true);
   const [pokemon,setPokemon]= useState( new Pokemon());
-  const [pokemonList, setPokemonList]=useState([]);
+  const [pokemonList, setPokemonList]=useState<any>([]);
   const [displaySpinner,setDisplaySpinner]=useState(false);
-  
   //reusable style
   const pokemonImageStyle= 'relative w-auto h-60 sm:h-80 select-none';
   const previousSelectedImage='transition-all h-36 sm:h-44 md:h-52 -left-40 sm:-left-48 md:-left-60 top-12 brightness-0 contrast-50 opacity-70 hover:opacity-100 previous-pokemon-picture select-none';
@@ -43,20 +42,16 @@ function PokemonInfo (props: any) {
   const menuItemStyle=' flex items-center sm:pb-2 sm:pr-8 text-sm transition-colors duration-200 cursor-pointer md:text-lg hover:text-black';
 
   useEffect(() => {
-    if(pokemonListSaved.length<=1){
-      setDisplayLoader(true);
-      genericFunctions.getPokemons(1,20).then((response: any)=>{
-        setPokemonList(response);
-        setPokemon(response[pokemonId-1]);
-        setDisplayLoader(false);
-      })
+    
+    setDisplayLoader(true);
+    if(!pokemonListSaved[pokemonId-1]){
+      navigate('/notFound');
+      return; 
     }
-    else{
-      setPokemonList(pokemonListSaved);
-      setPokemon(pokemonListSaved[pokemonId-1]);
-      setDisplayLoader(false);
-      typeAnimation();
-    }
+    setPokemonList(pokemonListSaved);
+    setPokemon(pokemonListSaved[pokemonId-1]);
+    setDisplayLoader(false);
+    typeAnimation();
   }, [pokemonId]);
 
   const changeSession= async (sessionName: string)=>{

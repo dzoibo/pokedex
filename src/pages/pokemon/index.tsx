@@ -13,17 +13,16 @@ import pokemonData from '../../assets/data/pokemons.json';
 
 function Pokemon(props: any) {
   const genericFunctions = new Generics();
-  const pokemonListSaved=pokemonData as any[];
   const [displayLoader, setDisplayLoader]= useState(false);
   const [selectedType,setType]= useState('All');
   const [searchKey,setSearchKey]= useState('');
+  const [pokemonListSaved, setPokemonListSaved]=useState<any>(pokemonData as any[]);
   const [pokemonList, setPokemonList]=useState<any>([]);
   const [loadingMore, setLoadingMore]=useState(false);
   const navigate= useNavigate();
   
   useEffect(() => {
       setDisplayLoader(true);
-      console.log(pokemonListSaved)
       setPokemonList(pokemonListSaved)
       setDisplayLoader(false);
   }, []);
@@ -48,10 +47,16 @@ function Pokemon(props: any) {
   }
 
   const fetchMorePokemon = async() =>{
+    if(selectedType!=='All'){
+      return;
+    }
     setLoadingMore(true);
-    const response = await genericFunctions.getPokemons(pokemonList.length+1,pokemonList.length+6);
-    const updatedList: any= [...pokemonList,...response];
-    setPokemonList(updatedList);
+    const response = await genericFunctions.getPokemons(pokemonListSaved.length+1,pokemonListSaved.length+6);
+    const updatedList: any= [...pokemonListSaved,...response];
+    if(selectedType==='All'){
+      setPokemonList(updatedList);
+      setPokemonListSaved(updatedList)
+    }
     setLoadingMore(false);
   }
 
@@ -85,7 +90,7 @@ function Pokemon(props: any) {
           <InfiniteScroll
             dataLength={pokemonList.length}
             next={fetchMorePokemon} 
-            hasMore={pokemonListSaved.length<200} 
+            hasMore={pokemonListSaved.length<1000} 
             loader={loadingMore && <div className='w-full flex justify-center py-5 font-bold'><img className='w-10 h-10' src={spinner} alt="loader" /> </div>}>
               <div className='flex w-full justify-center gap-x-6 flex-wrap'>
                 {pokemonList.map((item:any) => (
