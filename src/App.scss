@@ -1,3 +1,6 @@
+body{
+    zoom: 80%;
+}
 *{
     scroll-behavior: smooth;
 }
@@ -6,6 +9,8 @@
     margin-bottom: 1.5rem;
     font-weight: bold;
 }
+
+
 
 .custom-scrollBar{
     &::-webkit-scrollbar {

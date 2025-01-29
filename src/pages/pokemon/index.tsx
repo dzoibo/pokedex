@@ -3,18 +3,22 @@ import Header from '../../components/header';
 import SearchBar from '../../components/searchBar';
 import TypeMenu from '../../components/typeMenu';
 import PokemonCard from '../../components/pokemonCard';
+import { Dispatch, AnyAction } from "redux";
+import { useDispatch ,useSelector} from 'react-redux';
 import Generics from '../../services/models/model';
 import Loader from '../../components/loader/loader';
-import InfiniteScroll from "react-infinite-scroll-component"
-import spinner from '../../assets/images/loader.gif';
 import { flushSync } from 'react-dom';
 import { useNavigate } from 'react-router-dom';
-import pokemonData from '../../assets/data/pokemons.json';
+import spinner from '../../assets/images/loader.gif';
+import InfiniteScroll from "react-infinite-scroll-component"
+import { loadPokemon } from '../../redux/pokemon/actionPokemon';
 
 function Pokemon(props: any) {
+  const dispatch: Dispatch<AnyAction> = useDispatch();
   const genericFunctions = new Generics();
   const [displayLoader, setDisplayLoader]= useState(false);
   const [selectedType,setType]= useState('All');
+  const pokemonData= useSelector((state:any) => state.pokemonList);
   const [searchKey,setSearchKey]= useState('');
   const [pokemonListSaved, setPokemonListSaved]=useState<any>(pokemonData as any[]);
   const [pokemonList, setPokemonList]=useState<any>([]);
@@ -55,7 +59,9 @@ function Pokemon(props: any) {
     const updatedList: any= [...pokemonListSaved,...response];
     if(selectedType==='All'){
       setPokemonList(updatedList);
-      setPokemonListSaved(updatedList)
+      setPokemonListSaved(updatedList);
+      dispatch(loadPokemon(updatedList));
+
     }
     setLoadingMore(false);
   }

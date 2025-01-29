@@ -9,15 +9,18 @@ import InfiniteScroll from "react-infinite-scroll-component"
 import spinner from '../../assets/images/loader.gif';
 import Loader from '../../components/loader/loader';
 import ScrollTrigger from 'gsap/ScrollTrigger';
-import movesData from '../../assets/data/moves.json';
 import gsap from "gsap";
-
+import { Dispatch, AnyAction } from "redux";
+import { useDispatch ,useSelector} from 'react-redux';
+import { loadMoves } from '../../redux/pokemon/actionPokemon';
 gsap.registerPlugin(ScrollTrigger);
 
 
 function MovesList(props: any) {
+    const dispatch: Dispatch<AnyAction> = useDispatch();
     const genericFunctions = new Generics();
     const [displayLoader, setDisplayLoader]= useState(false);
+    const movesData= useSelector((state:any) => state.moveList);
     const [moveListSaved, setMoveListSaved]=useState<any>(movesData as any[]);
 
     const [moveList, setMoveList]=useState([]);
@@ -38,7 +41,8 @@ function MovesList(props: any) {
       const updatedList: any= [...moveListSaved,...response];
       if(selectedType==='All'){
         setMoveList(updatedList);
-        setMoveListSaved(updatedList)
+        setMoveListSaved(updatedList);
+        dispatch(loadMoves(updatedList))
       }
       setLoadingMore(false);
     }

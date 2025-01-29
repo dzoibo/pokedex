@@ -12,7 +12,7 @@ function Notfound() {
         <p className='font-bold text-black mt-4 text-2xl tracking-[6px] '>Page not found</p>
 
         <Link to={'/'}>
-          <button className='tracking-[8px] px-6 py-2 border border-solid border-gray-400 text-2xl mt-24 text-gray-500 font-semibold'>BACK HOME</button>
+          <button className='tracking-[8px] px-6 py-2 border border-solid border-gray-400 text-2xl mt-24 text-gray-500 font-semibold'>Aller à l'accueil</button>
         </Link>
     </div>
   )

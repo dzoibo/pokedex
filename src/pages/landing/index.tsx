@@ -7,21 +7,21 @@ import pokeball from '../../assets/images/pokeball.svg';
 import Generics from '../../services/models/model';
 import Cries from '../../components/cries';
 import Loader from '../../components/loader/loader';
+import {useSelector} from 'react-redux';
 
 const Landing = (props: any) => {
   const menuCardStyle= 'overflow-hidden relative shadow-md px-0 sm:px-4 py-5 sm:py-8 rounded-xl sm:rounded-3xl text-white font-bold text-xl sm:text-2xl space-[0.5] before:absolute before:w-32 before:h-32 before:rounded-full before:rotate-45 before:-top-20 before:-left-16 before:bg-white/20 hover:before:bg-white/40 before:transition-all bg-grass shadow-grass/80 ';
   const [pokemon,setPokemon]= useState( new Pokemon());
-  const [displayLoader, setDisplayLoader]= useState(true)
+  const [displayLoader,setDisplayLoader]= useState(true)
   const genericFunctions = new Generics();
+  const pokemonListSaved=useSelector((state:any) => state.pokemonList) as any[];
   
   useEffect(() => {
-    const randomId = Math.floor(Math.random() * 150) + 1;
     setDisplayLoader(true);
-    genericFunctions.getPokemon(randomId).then((response: any)=>{
-      setPokemon(response);
-      setDisplayLoader(false);
-    });
-  }, []);
+    const randomId = Math.floor(Math.random() * 190) + 1;
+    setPokemon(pokemonListSaved[randomId]);
+    setDisplayLoader(false);
+  }, [pokemonListSaved]);
 
   if(!displayLoader){
     return (
